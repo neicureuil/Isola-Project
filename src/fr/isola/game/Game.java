@@ -10,6 +10,15 @@ public class Game {
     public Game(Player p1, Player p2) {
         this.p1 = p1;
         this.p2 = p2;
+        Init();
+    }
+
+    void Init() {
+
+    }
+
+    public void Start() {
+
     }
 
     public Player getP1() {
