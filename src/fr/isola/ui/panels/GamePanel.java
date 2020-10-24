@@ -1,11 +1,14 @@
 package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
+import javafx.scene.input.MouseButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements MouseListener {
 
     private Game game;
 
@@ -17,6 +20,8 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
         this.game = game;
         setBackground(new Color(6,66,115) );
+
+        addMouseListener(this);
         Init();
     }
 
@@ -62,6 +67,37 @@ public class GamePanel extends JPanel {
     }
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(e.getButton() != MouseEvent.BUTTON1) return;
+        // CHECK IF MOUSE IS IN GRID
+        if(e.getX() > (offsetX + offset) && e.getX() < (offsetX + lineW - offset) && e.getY() > (offsetY + offset) && e.getY() < (offsetY + lineH - offset)) {
+            int xTile = (e.getX() - offsetX) / (tileW + offset);
+            int yTile = (e.getY() - offsetY) / (tileH + offset);
+            System.out.println(xTile + " " + yTile);
+        }
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
 
