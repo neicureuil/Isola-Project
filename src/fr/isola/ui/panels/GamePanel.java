@@ -80,7 +80,7 @@ public class GamePanel extends JPanel implements MouseListener {
         if(e.getX() > (offsetX + offset) && e.getX() < (offsetX + lineW - offset) && e.getY() > (offsetY + offset) && e.getY() < (offsetY + lineH - offset)) {
             int xTile = (e.getX() - offsetX) / (tileW + offset);
             int yTile = (e.getY() - offsetY) / (tileH + offset);
-            System.out.println(xTile + " " + yTile);
+            game.SetPositionOnGrid(xTile, yTile);
         }
 
     }

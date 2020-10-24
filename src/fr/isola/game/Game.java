@@ -25,6 +25,10 @@ public class Game {
 
     }
 
+    public void SetPositionOnGrid(int x, int y) {
+        // TODO CHECK PLAYER TURN
+    }
+
     public Player getP1() {
         return p1;
     }
