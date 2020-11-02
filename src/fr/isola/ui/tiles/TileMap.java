@@ -22,11 +22,11 @@ public class TileMap {
         }
     }
 
-    private Image getImageFromMap(int xi, int yi) {
+    private BufferedImage getImageFromMap(int xi, int yi) {
         return image.getSubimage(xi * tileSize,yi * tileSize, tileSize, tileSize);
     }
 
-    public Image getTile(String key) {
+    public BufferedImage getTile(String key) {
         // 0 1 2
         // 3 * 4
         // 5 6 7
@@ -90,6 +90,7 @@ public class TileMap {
 
         // HAS WATER LEFT UP CORNER
         if(key.charAt(0) == 'W') {
+            if(key.charAt(2) == 'I' && key.charAt(5) == 'I' && key.charAt(7) == 'W') return getImageFromMap(6,4);
             if(key.charAt(2) == 'W' && key.charAt(5) == 'W' && key.charAt(7) == 'W') return getImageFromMap(2,4);
             if(key.charAt(2) == 'W' && key.charAt(5) == 'W') return getImageFromMap(0,4);
             if(key.charAt(2) == 'W' && key.charAt(7) == 'W') return getImageFromMap(1,4);
@@ -102,6 +103,7 @@ public class TileMap {
 
         // HAS WATER RIGHT UP CORNER
         if(key.charAt(2) == 'W') {
+            if(key.charAt(0) == 'I' && key.charAt(5) == 'W' && key.charAt(7) == 'I') return getImageFromMap(5,4);
             if(key.charAt(7) == 'W' && key.charAt(5) == 'W') return getImageFromMap(4,4);
             if(key.charAt(7) == 'W') return getImageFromMap(8,3);
 

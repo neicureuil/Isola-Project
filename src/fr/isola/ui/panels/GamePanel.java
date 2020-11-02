@@ -1,24 +1,26 @@
 package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
+import fr.isola.ui.tiles.ImageUtils;
 import fr.isola.ui.tiles.TileMap;
-import javafx.scene.input.MouseButton;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.Console;
-import java.io.IOException;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
-public class GamePanel extends JPanel implements MouseListener {
+public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     private Game game;
 
-    private int tileW = 64, tileH = 64;
+    private int tileSize = 64;
     private int offsetX, offsetY;
     private int lineW, lineH;
+    private int cMouseX = 0, cMouseY = 0;
+
+    private int mouseOverMask = 0xff00ff00;
 
     private TileMap tmap;
 
@@ -27,14 +29,15 @@ public class GamePanel extends JPanel implements MouseListener {
         setBackground(new Color(6,66,115) );
 
         addMouseListener(this);
+        addMouseMotionListener(this);
         Init();
     }
 
     private void Init() {
         tmap = new TileMap("/resources/images/spritesheet.png", 16);
 
-        lineW = game.getSizeX() * tileW;
-        lineH = game.getSizeY() * tileH;
+        lineW = game.getSizeX() * tileSize;
+        lineH = game.getSizeY() * tileSize;
 
         offsetX = (getPreferredSize().width - lineW) / 2;
         offsetY = (getPreferredSize().height - lineH) / 2;
@@ -44,7 +47,7 @@ public class GamePanel extends JPanel implements MouseListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        // DESSIN DES TILES (A REMPLACER PAR DES IMAGES)
+        // DESSIN DES TILES
         g.setColor(Color.GREEN);
 
         for(int i=0; i<game.getSizeX(); i++) {
@@ -58,10 +61,14 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     private void drawTile(Graphics g, int x, int y) {
-        int x1 = offsetX + x * tileW;
-        int y1 = offsetY + y * tileH;
+        int x1 = offsetX + x * tileSize;
+        int y1 = offsetY + y * tileSize;
         if(game.getTile(x,y)){
-            g.drawImage(tmap.getTile(getTileKey(x, y)), x1,y1, x1+tileW, y1+tileH, 0, 0, 16, 16, null);
+            BufferedImage tile = tmap.getTile(getTileKey(x,y));
+            if(cMouseX > x1 && cMouseX < (x1 + tileSize) && cMouseY > y1 && cMouseY < (y1 + tileSize)) {
+                tile = ImageUtils.GetImageWithMask(tile, mouseOverMask);
+            }
+            g.drawImage(tile, x1,y1, x1+tileSize, y1+tileSize, 0, 0, 16, 16, null);
         }
     }
 
@@ -100,8 +107,8 @@ public class GamePanel extends JPanel implements MouseListener {
         // CHECK IF MOUSE IS IN GRID
 
         if(e.getX() > offsetX && e.getX() < (offsetX + lineW ) && e.getY() > offsetY  && e.getY() < (offsetY + lineH )) {
-            int xTile = (e.getX() - offsetX) / (tileW);
-            int yTile = (e.getY() - offsetY) / (tileH);
+            int xTile = (e.getX() - offsetX) / tileSize;
+            int yTile = (e.getY() - offsetY) / tileSize;
             game.SetPositionOnGrid(xTile, yTile);
             this.repaint();
         }
@@ -122,5 +129,18 @@ public class GamePanel extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        cMouseX = e.getX();
+        cMouseY = e.getY();
+        this.repaint();
+    }
+
 }
 
