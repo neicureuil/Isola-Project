@@ -18,8 +18,8 @@ public class IsolaFrame extends JFrame {
         setResizable(false);
 
 
-        getContentPane().add(new GamePanel(new Game(new HumanPlayer(), new IaPlayer(), 8, 6)));
-
+        //getContentPane().add(new GamePanel(new Game(new HumanPlayer(), new IaPlayer(), 8, 6)));
+        getContentPane().add(new MenuPanel());
 
         pack();
         setLocationRelativeTo(null);
