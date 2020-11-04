@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private Game game;
 
     private int tileSize = 64;
+    private int sizeX, sizeY;
     private int offsetX, offsetY;
     private int lineW, lineH;
     private int cMouseX = 0, cMouseY = 0;
@@ -36,8 +37,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private void Init() {
         tmap = new TileMap("/resources/images/spritesheet.png", 16);
 
-        lineW = game.getSizeX() * tileSize;
-        lineH = game.getSizeY() * tileSize;
+        sizeX = game.getConfig().getSizeX();
+        sizeY = game.getConfig().getSizeY();
+
+        lineW = sizeX * tileSize;
+        lineH = sizeY * tileSize;
 
         offsetX = (getPreferredSize().width - lineW) / 2;
         offsetY = (getPreferredSize().height - lineH) / 2;
@@ -50,8 +54,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         // DESSIN DES TILES
         g.setColor(Color.GREEN);
 
-        for(int i=0; i<game.getSizeX(); i++) {
-            for(int j=0; j<game.getSizeY(); j++) {
+        for(int i=0; i<sizeX; i++) {
+            for(int j=0; j<sizeY; j++) {
                 drawTile(g, i, j);
             }
         }
@@ -78,7 +82,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         for(int j=y-1; j<=y+1; j++) {
             for(int i=x-1; i<=x+1; i++) {
                 if(i==x && j==y) continue;
-                if(i<0 || i >= game.getSizeX() || j<0 || j >= game.getSizeY()) {
+                if(i<0 || i >= sizeX|| j<0 || j >= sizeY) {
                     key += "W";
                 }else {
                     key += (game.getTile(i, j)) ? "I" : "W";

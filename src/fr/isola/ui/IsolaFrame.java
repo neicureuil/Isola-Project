@@ -11,18 +11,31 @@ import java.awt.*;
 
 public class IsolaFrame extends JFrame {
 
+    private MenuPanel menu;
+
     public IsolaFrame() {
         setTitle("Isola");
         //setPreferredSize(new Dimension(1080, 720));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
+        menu = new MenuPanel(this);
+        ShowMenu();
 
-        //getContentPane().add(new GamePanel(new Game(new HumanPlayer(), new IaPlayer(), 8, 6)));
-        getContentPane().add(new MenuPanel());
-
-        pack();
         setLocationRelativeTo(null);
+    }
+
+    public void ShowGame(Game game) {
+        getContentPane().removeAll();
+        getContentPane().add(new GamePanel(game));
+        pack();
+        repaint();
+    }
+
+    public  void ShowMenu() {
+        getContentPane().removeAll();
+        getContentPane().add(menu);
+        pack();
     }
 
 }
