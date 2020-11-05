@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     private Game game;
+    private GameInfoPanel infos;
 
     private int tileSize = 64;
     private int sizeX, sizeY;
@@ -27,7 +28,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     public GamePanel(Game game) {
         this.game = game;
+        this.infos = new GameInfoPanel();
+
         setBackground(new Color(6,66,115) );
+        setLayout(new BorderLayout());
+        add(infos, BorderLayout.NORTH);
 
         addMouseListener(this);
         addMouseMotionListener(this);

@@ -3,10 +3,13 @@ package fr.isola.game.players;
 public abstract class Player {
 
     private  int x, y;
+    private String name;
 
     public Player() {
 
     }
+
+    public String getName() { return name; }
 
     public void setX(int x) {
         this.x = x;
