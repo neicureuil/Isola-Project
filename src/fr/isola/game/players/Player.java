@@ -6,7 +6,7 @@ public abstract class Player {
     private String name;
 
     public Player() {
-
+        //Atrhjnsjklhnt
     }
 
     public String getName() { return name; }
