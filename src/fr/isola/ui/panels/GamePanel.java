@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     private void Init() {
-        tmap = new TileMap("/resources/images/spritesheet.png", 16);
+        tmap = new TileMap("/resources/images/spritesheet.png", 16, 10, 5);
 
         sizeX = game.getConfig().getSizeX();
         sizeY = game.getConfig().getSizeY();

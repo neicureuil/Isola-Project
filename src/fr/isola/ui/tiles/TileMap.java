@@ -9,21 +9,29 @@ public class TileMap {
 
     private String path;
     private int tileSize;
-    private BufferedImage image;
+    private BufferedImage[][] tiles;
 
-    public TileMap(String path, int tileSize) {
+    public TileMap(String path, int tileSize, int nbX, int nbY) {
         this.path = path;
         this.tileSize = tileSize;
+        this.tiles = new BufferedImage[nbX][nbY];
+        LoadTiles(nbX, nbY);
+    }
 
+    private void LoadTiles(int nbX, int nbY) {
+        BufferedImage image = null;
         try {
-            this.image = ImageIO.read(getClass().getResource(path));
+            image = ImageIO.read(getClass().getResource(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        for(int i=0; i<nbX; i++)
+            for(int j=0;j<nbY;j++)
+                tiles[i][j] = image.getSubimage(i * tileSize,j * tileSize, tileSize, tileSize);
     }
 
     private BufferedImage getImageFromMap(int xi, int yi) {
-        return image.getSubimage(xi * tileSize,yi * tileSize, tileSize, tileSize);
+        return tiles[xi][yi];
     }
 
     public BufferedImage getTile(String key) {
