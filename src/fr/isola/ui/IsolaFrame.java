@@ -1,5 +1,6 @@
 package fr.isola.ui;
 
+import fr.isola.audio.AudioManager;
 import fr.isola.game.Game;
 import fr.isola.ui.panels.GamePanel;
 import fr.isola.ui.panels.MenuPanel;
@@ -37,12 +38,17 @@ public class IsolaFrame extends JFrame {
         getContentPane().removeAll();
         getContentPane().add(new GamePanel(game));
         pack();
+
+        AudioManager.INSTANCE.SetBackgroundMusicVolume(-10);
+        //AudioManager.INSTANCE.PlayerBackgroundMusic("game_theme");
     }
 
     public  void ShowMenu() {
         getContentPane().removeAll();
         getContentPane().add(menu);
         pack();
+
+        AudioManager.INSTANCE.PlayerBackgroundMusic("menu_theme");
     }
 
 }

@@ -4,6 +4,8 @@ import fr.isola.game.GameConfig;
 import fr.isola.game.players.HumanPlayer;
 import fr.isola.game.players.IaPlayer;
 import fr.isola.ui.components.MenuButton;
+import fr.isola.ui.components.NumberSelection;
+import fr.isola.ui.components.PlayerSelection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,8 @@ import java.awt.*;
 public class MenuConfigPanel extends JPanel {
 
     private JButton confirmPlayBtn;
+    private PlayerSelection playerSelect1, playerSelect2;
+    private NumberSelection widthSelect, heightSelect;
 
     public MenuConfigPanel() {
         setBackground(new Color(20,20,20,100));
@@ -28,8 +32,34 @@ public class MenuConfigPanel extends JPanel {
 
         confirmPlayBtn = new MenuButton("Lancer la partie");
 
+        // ------ OPTION PANEL ------
         JPanel gameOptionPanel = new JPanel();
         gameOptionPanel.setOpaque(false);
+        gameOptionPanel.setLayout(new GridBagLayout());
+
+        GridBagConstraints optGbc = new GridBagConstraints();
+        optGbc.fill = GridBagConstraints.HORIZONTAL;
+        optGbc.insets = new Insets(10,10,10,10);
+
+        widthSelect = new NumberSelection("Largeur", 1,18, 1);
+        heightSelect = new NumberSelection("Hauteur", 1,10, 1);;
+
+        optGbc.gridy = 0;
+        optGbc.gridx = 0;
+        gameOptionPanel.add(widthSelect, optGbc);
+        optGbc.gridx = 1;
+        gameOptionPanel.add(heightSelect, optGbc);
+
+        playerSelect1 = new PlayerSelection();
+        playerSelect2 = new PlayerSelection();
+
+        optGbc.gridy = 1;
+        optGbc.gridx = 0;
+        gameOptionPanel.add(playerSelect1, optGbc);
+        optGbc.gridx = 1;
+        gameOptionPanel.add(playerSelect2, optGbc);
+
+        // ------ END OPTION PANEL ------
 
         gbc.anchor = GridBagConstraints.PAGE_START;
         add(label, gbc);
