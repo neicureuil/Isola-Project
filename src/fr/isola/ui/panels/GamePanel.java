@@ -118,7 +118,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             int xTile = (e.getX() - offsetX) / tileSize;
             int yTile = (e.getY() - offsetY) / tileSize;
             game.SetPositionOnGrid(xTile, yTile);
-            this.repaint();
+            //this.repaint();
         }
 
     }
@@ -147,7 +147,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mouseMoved(MouseEvent e) {
         cMouseX = e.getX();
         cMouseY = e.getY();
-        this.repaint();
+        //this.repaint();
     }
 
 }
