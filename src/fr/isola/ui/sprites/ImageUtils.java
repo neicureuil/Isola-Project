@@ -1,4 +1,4 @@
-package fr.isola.ui.tiles;
+package fr.isola.ui.sprites;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,14 +1,12 @@
 package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
-import fr.isola.ui.tiles.ImageUtils;
-import fr.isola.ui.tiles.TileMap;
+import fr.isola.ui.sprites.ImageUtils;
+import fr.isola.ui.sprites.TileMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
@@ -36,11 +34,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         addMouseListener(this);
         addMouseMotionListener(this);
+
         Init();
     }
 
     private void Init() {
-        tmap = new TileMap("/resources/images/spritesheet.png", 16, 10, 5);
+        tmap = new TileMap("/resources/images/tilemap.png", 16, 10, 5);
 
         sizeX = game.getConfig().getSizeX();
         sizeY = game.getConfig().getSizeY();

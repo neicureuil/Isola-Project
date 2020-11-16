@@ -22,17 +22,20 @@ public class MenuConfigPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.gridx = 0;
 
-        confirmPlayBtn = new MenuButton("Lancer la partie");
-
         JLabel label = new JLabel("Settings", SwingConstants.CENTER);
         label.setForeground(Color.WHITE);
         label.setFont(label.getFont().deriveFont(40f));
+
+        confirmPlayBtn = new MenuButton("Lancer la partie");
+
+        JPanel gameOptionPanel = new JPanel();
+        gameOptionPanel.setOpaque(false);
 
         gbc.anchor = GridBagConstraints.PAGE_START;
         add(label, gbc);
 
         gbc.anchor = GridBagConstraints.CENTER;
-
+        add(gameOptionPanel, gbc);
 
         gbc.anchor = GridBagConstraints.PAGE_END;
         add(confirmPlayBtn, gbc);

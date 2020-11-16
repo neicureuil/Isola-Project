@@ -36,6 +36,7 @@ public class IsolaFrame extends JFrame {
         getContentPane().removeAll();
         getContentPane().add(menu);
         pack();
+        repaint();
     }
 
 }

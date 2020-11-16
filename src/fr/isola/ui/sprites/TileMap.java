@@ -1,7 +1,6 @@
-package fr.isola.ui.tiles;
+package fr.isola.ui.sprites;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
