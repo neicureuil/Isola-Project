@@ -37,8 +37,8 @@ public class Game {
     }
 
     void PlacePlayers() {
-        int x =3; //(int)(Math.random()*(config.getSizeX()/2));
-        int y =3; //(int)(Math.random()*config.getSizeY());
+        int x = (int)(Math.random()*(config.getSizeX()/2));
+        int y = (int)(Math.random()*config.getSizeY());
         p1.setX(x);
         p1.setY(y);
         x = (int)(Math.random()*(config.getSizeX()/2)+config.getSizeX()/2);
