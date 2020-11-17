@@ -18,7 +18,7 @@ public class Game {
         this.config = config;
         this.map = new boolean[config.getSizeX()][config.getSizeY()];
         p1 = config.getP1();
-        p2 = config.getP1();
+        p2 = config.getP2();
 
         Init();
         PlayGame();
@@ -78,7 +78,7 @@ public class Game {
 
         for(int i=y_min; i<= y_max; i++) {
             for(int j=x_min; j<= x_max; j++) {
-                if( map[j][i] && p1.getX()!=j && p1.getY()!=i && p2.getX()!=j && p2.getY()!=i ) {
+                if( map[j][i] && (p1.getX()!=j || p1.getY()!=i) && (p2.getX()!=j || p2.getY()!=i) ) {
                     return false;
                 }
             }
@@ -90,7 +90,7 @@ public class Game {
     public void SetPositionOnGrid/*SomeoneClicked*/(int x, int y) {
         if(state==GameState.MOVE && active_player instanceof HumanPlayer){
             System.out.println("1");//
-            if(map[x][y] && Math.abs( active_player.getX() - x ) <= 1 && Math.abs( active_player.getY() - y ) <= 1  ) {
+            if(map[x][y] && Math.abs( active_player.getX() - x ) <= 1 && Math.abs( active_player.getY() - y ) <= 1 && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y) ) {
                 System.out.println("2");//
                 active_player.setX(x);
                 active_player.setY(y);
