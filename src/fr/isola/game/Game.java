@@ -13,6 +13,7 @@ public class Game {
         this.map = new boolean[config.getSizeX()][config.getSizeY()];
 
         Init();
+        //PlayGame();
     }
 
     void Init() {
@@ -22,11 +23,18 @@ public class Game {
                 map[i][j] = true;
             }
         }
+        //METTRE LES JOUEURS EN PLACE SUR LE PLATEAU
     }
 
-    public void Start() {
-
+    void PlayGame() {
+        boolean isGameFinished = false;
+        do {
+            //CHANGEMENT DE JOUEUR ACTIF
+            //LANCER JOUEUR.TOUR
+            //TESTER SI UN DES JOUEURS EST BLOQUE -> isGameFinished = true
+        } while(isGameFinished == false);
     }
+
 
     public void SetPositionOnGrid(int x, int y) {
         // TODO CHECK PLAYER TURN
@@ -38,4 +46,6 @@ public class Game {
     public GameConfig getConfig() { return config; }
 
     public boolean getTile(int x, int y) { return map[x][y]; }
+
+    
 }

@@ -76,6 +76,6 @@ public class MenuConfigPanel extends JPanel {
     }
 
     public GameConfig getGameConfig() {
-        return new GameConfig(new HumanPlayer(), new IaPlayer(), 16,8);
+        return new GameConfig(new HumanPlayer(), new IaPlayer(), 24,6);
     }
 }

@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private Game game;
     private GameInfoPanel infos;
 
-    private int tileSize = 64;
+    private int tileSize = 48;
     private int sizeX, sizeY;
     private int offsetX, offsetY;
     private int lineW, lineH;
