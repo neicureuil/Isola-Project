@@ -1,17 +1,9 @@
 package fr.isola.audio;
 
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class AudioManager {
 
