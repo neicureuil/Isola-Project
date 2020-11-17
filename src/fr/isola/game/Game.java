@@ -6,11 +6,13 @@ import fr.isola.game.players.Player;
 
 public class Game {
 
-    private enum GameState{ MOVE, DESTROY, P1LOST, P2LOST };
+    public enum GameState{ MOVE, DESTROY, P1LOST, P2LOST };
+
     private GameState state;
     private GameConfig config;
-    // MAP => TRUE = NON DETRUIT (ON PEUT SE DEPLACER DESSUS) - FALSE = DETRUITE
-    private boolean map[][];
+
+    private boolean map[][]; // MAP => TRUE = NON DETRUIT (ON PEUT SE DEPLACER DESSUS) - FALSE = DETRUITE
+
     private Player p1, p2;
     Player active_player;
 
@@ -108,6 +110,10 @@ public class Game {
     public GameConfig getConfig() { return config; }
 
     public boolean getTile(int x, int y) { return map[x][y]; }
+
+    public GameState getState() { return state; }
+
+    public int getActivePlayerId() { return (active_player.equals(p1))?(1):(2); }
 
     
 }

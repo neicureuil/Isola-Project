@@ -56,8 +56,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        UpdateTitleText();
 
-        // DESSIN DES TILES
         g.setColor(Color.GREEN);
 
         for(int i=0; i<sizeX; i++) {
@@ -66,7 +66,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             }
         }
 
-        // TODO  DESSIN DES PLAYERS
         drawPlayer(g, game.getConfig().getP1());
         drawPlayer(g, game.getConfig().getP2());
     }
@@ -74,7 +73,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private void drawPlayer(Graphics g, Player p) {
         int x1 = offsetX + p.getX() * tileSize;
         int y1 = offsetY + p.getY() * tileSize;
-        g.drawImage(SpriteSheet.INSTANCE.getSprite(0), x1,y1, x1+tileSize, y1+tileSize, 0, 0, 16, 16, null);
+        g.drawImage(SpriteSheet.INSTANCE.getSprite(p.getSprite()), x1,y1, x1+tileSize, y1+tileSize, 0, 0, 16, 16, null);
     }
 
     private void drawTile(Graphics g, int x, int y) {
@@ -106,6 +105,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         return key;
     }
 
+    public void UpdateTitleText() {
+        String txt = "Joueur " + game.getActivePlayerId() + " : ";
+        if(game.getState() == Game.GameState.MOVE) {
+            txt += "Move";
+        }else if(game.getState() == Game.GameState.DESTROY) {
+            txt += "Destroy";
+        }
+        infos.setInfoText(txt);
+    }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(1080, 720);
@@ -121,13 +130,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() != MouseEvent.BUTTON1) return;
-        // CHECK IF MOUSE IS IN GRID
 
         if(e.getX() > offsetX && e.getX() < (offsetX + lineW ) && e.getY() > offsetY  && e.getY() < (offsetY + lineH )) {
             int xTile = (e.getX() - offsetX) / tileSize;
             int yTile = (e.getY() - offsetY) / tileSize;
             game.SetPositionOnGrid(xTile, yTile);
-            //this.repaint();
         }
 
     }
@@ -156,7 +163,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mouseMoved(MouseEvent e) {
         cMouseX = e.getX();
         cMouseY = e.getY();
-        //this.repaint();
     }
 
 }

@@ -78,7 +78,10 @@ public class MenuConfigPanel extends JPanel {
 
     public GameConfig getGameConfig() {
         Player p1 = (playerSelect1.getPlayerType() == 0) ? new HumanPlayer() : new IaPlayer();
+        p1.setSprite(playerSelect1.getSelectedSprite());
+
         Player p2 = (playerSelect2.getPlayerType() == 0) ? new HumanPlayer() : new IaPlayer();
+        p2.setSprite(playerSelect2.getSelectedSprite());
 
         return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue());
     }

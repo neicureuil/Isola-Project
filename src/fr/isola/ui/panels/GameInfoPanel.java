@@ -21,8 +21,8 @@ public class GameInfoPanel extends JPanel {
         add(currentPlayerLabel, gbc);
     }
 
-    public void setPlayerTurn(int playerNb) {
-        this.currentPlayerLabel.setText("Tour du joueur " + playerNb);
+    public void setInfoText(String txt) {
+        this.currentPlayerLabel.setText(txt);
     }
 
     @Override
