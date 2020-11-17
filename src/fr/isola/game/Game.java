@@ -32,12 +32,13 @@ public class Game {
             }
         }
         PlacePlayers();
+        active_player = p2;
         PlayGame();
     }
 
     void PlacePlayers() {
-        int x = (int)(Math.random()*(config.getSizeX()/2));
-        int y = (int)(Math.random()*config.getSizeY());
+        int x =3; //(int)(Math.random()*(config.getSizeX()/2));
+        int y =3; //(int)(Math.random()*config.getSizeY());
         p1.setX(x);
         p1.setY(y);
         x = (int)(Math.random()*(config.getSizeX()/2)+config.getSizeX()/2);
@@ -88,14 +89,16 @@ public class Game {
 
     public void SetPositionOnGrid/*SomeoneClicked*/(int x, int y) {
         if(state==GameState.MOVE && active_player instanceof HumanPlayer){
-            if(map[x][y] && Math.abs( active_player.getX() - x ) <= 1 && Math.abs( active_player.getY() - y ) <= 1 && p1.getX()!=x && p1.getY()!=y && p2.getX()!=x && p2.getY()!=y ) {
+            System.out.println("1");//
+            if(map[x][y] && Math.abs( active_player.getX() - x ) <= 1 && Math.abs( active_player.getY() - y ) <= 1  ) {
+                System.out.println("2");//
                 active_player.setX(x);
                 active_player.setY(y);
                 state = GameState.DESTROY;
             }
         }
         else if(state==GameState.DESTROY && active_player instanceof HumanPlayer) {
-            if(map[x][y] && p1.getX()!=x && p1.getY()!=y && p2.getX()!=x && p2.getY()!=y) {
+            if(map[x][y] && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y)) {
                 map[x][y]=false;
                 EndTurn();
             }
