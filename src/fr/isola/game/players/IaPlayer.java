@@ -6,4 +6,11 @@ public class IaPlayer extends Player {
         super();
     }
 
+    public void move() {
+
+    }
+
+    public void destroy() {
+
+    }
 }
