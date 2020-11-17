@@ -3,6 +3,7 @@ package fr.isola.ui.panels;
 import fr.isola.game.GameConfig;
 import fr.isola.game.players.HumanPlayer;
 import fr.isola.game.players.IaPlayer;
+import fr.isola.game.players.Player;
 import fr.isola.ui.components.MenuButton;
 import fr.isola.ui.components.NumberSelection;
 import fr.isola.ui.components.PlayerSelection;
@@ -41,8 +42,8 @@ public class MenuConfigPanel extends JPanel {
         optGbc.fill = GridBagConstraints.HORIZONTAL;
         optGbc.insets = new Insets(10,10,10,10);
 
-        widthSelect = new NumberSelection("Largeur", 1,18, 1);
-        heightSelect = new NumberSelection("Hauteur", 1,10, 1);;
+        widthSelect = new NumberSelection("Largeur", 1,18, 1, 18);
+        heightSelect = new NumberSelection("Hauteur", 1,13, 1, 10);;
 
         optGbc.gridy = 0;
         optGbc.gridx = 0;
@@ -76,6 +77,9 @@ public class MenuConfigPanel extends JPanel {
     }
 
     public GameConfig getGameConfig() {
-        return new GameConfig(new HumanPlayer(), new IaPlayer(), 18,10);
+        Player p1 = (playerSelect1.getPlayerType() == 0) ? new HumanPlayer() : new IaPlayer();
+        Player p2 = (playerSelect2.getPlayerType() == 0) ? new HumanPlayer() : new IaPlayer();
+
+        return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue());
     }
 }
