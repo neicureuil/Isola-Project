@@ -7,10 +7,13 @@ public class Game {
     private GameConfig config;
     // MAP => TRUE = NON DETRUIT (ON PEUT SE DEPLACER DESSUS) - FALSE = DETRUITE
     private boolean map[][];
+    private Player p1, p2;
 
     public Game(GameConfig config) {
         this.config = config;
         this.map = new boolean[config.getSizeX()][config.getSizeY()];
+        p1 = config.getP1();
+        p2 = config.getP1();
 
         Init();
         //PlayGame();
@@ -23,7 +26,18 @@ public class Game {
                 map[i][j] = true;
             }
         }
-        //METTRE LES JOUEURS EN PLACE SUR LE PLATEAU
+        PlacePlayers();
+    }
+
+    void PlacePlayers() {
+        int x = (int)(Math.random()*(config.getSizeX()/2));
+        int y = (int)(Math.random()*config.getSizeY());
+        p1.setX(x);
+        p1.setY(y);
+        x = (int)(Math.random()*(config.getSizeX()/2)+config.getSizeX()/2);
+        y = (int)(Math.random()*config.getSizeY());
+        p2.setX(x);
+        p2.setY(y);
     }
 
     void PlayGame() {
