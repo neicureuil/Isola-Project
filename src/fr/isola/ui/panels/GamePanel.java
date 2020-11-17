@@ -1,7 +1,9 @@
 package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
+import fr.isola.game.players.Player;
 import fr.isola.ui.sprites.ImageUtils;
+import fr.isola.ui.sprites.SpriteSheet;
 import fr.isola.ui.sprites.TileMap;
 
 import javax.swing.*;
@@ -65,7 +67,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         }
 
         // TODO  DESSIN DES PLAYERS
+        drawPlayer(g, game.getConfig().getP1());
+        drawPlayer(g, game.getConfig().getP2());
+    }
 
+    private void drawPlayer(Graphics g, Player p) {
+        int x1 = offsetX + p.getX() * tileSize;
+        int y1 = offsetY + p.getY() * tileSize;
+        g.drawImage(SpriteSheet.INSTANCE.getSprite(0), x1,y1, x1+tileSize, y1+tileSize, 0, 0, 16, 16, null);
     }
 
     private void drawTile(Graphics g, int x, int y) {
