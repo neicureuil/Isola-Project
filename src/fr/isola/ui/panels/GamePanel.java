@@ -23,6 +23,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private int cMouseX = 0, cMouseY = 0;
 
     private int mouseOverMask = 0xff00ff00;
+    private int moveMask = 0xff00ff00;
+    private int destroyMask = 0xffff0000;
 
     private TileMap tmap;
 
@@ -82,8 +84,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         if(game.getTile(x,y)){
             BufferedImage tile = tmap.getTile(getTileKey(x,y));
             if(cMouseX > x1 && cMouseX < (x1 + tileSize) && cMouseY > y1 && cMouseY < (y1 + tileSize)) {
-                tile = ImageUtils.GetImageWithMask(tile, mouseOverMask);
+                if(game.getState() == Game.GameState.DESTROY) {
+                    tile = ImageUtils.GetImageWithMask(tile, destroyMask);
+                }else {
+                    tile = ImageUtils.GetImageWithMask(tile, mouseOverMask);
+                }
+            } else if(game.getState() == Game.GameState.MOVE && Math.abs(game.getActivePlayer().getX()-x) <= 1 && Math.abs(game.getActivePlayer().getY()-y) <= 1) {
+                tile = ImageUtils.GetImageWithMask(tile, moveMask);
             }
+
+
             g.drawImage(tile, x1,y1, x1+tileSize, y1+tileSize, 0, 0, 16, 16, null);
         }
     }

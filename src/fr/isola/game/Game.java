@@ -115,5 +115,9 @@ public class Game {
 
     public int getActivePlayerId() { return (active_player.equals(p1))?(1):(2); }
 
+    public Player getActivePlayer() { return active_player; }
+
+
+
     
 }

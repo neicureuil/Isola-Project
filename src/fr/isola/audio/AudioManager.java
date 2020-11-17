@@ -31,6 +31,17 @@ public class AudioManager {
         }
     }
 
+    public void PlayVictorySound(String name) {
+        try {
+            StopBackgroundAudio();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/resources/audio/victory/" + name + ".wav"));
+            musicClip.open(inputStream);
+            musicClip.start();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     public void StopBackgroundAudio() {
         try {
             musicClip.stop();
