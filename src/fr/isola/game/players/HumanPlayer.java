@@ -6,8 +6,4 @@ public class HumanPlayer extends Player {
         super();
     }
 
-    public void PlayTurn() {
-
-    }
-
 }

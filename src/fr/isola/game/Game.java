@@ -6,7 +6,7 @@ import fr.isola.game.players.Player;
 
 public class Game {
 
-    public enum GameState{ MOVE, DESTROY, P1LOST, P2LOST };
+    public enum GameState{ MOVE, DESTROY, P1LOST, P2LOST }
 
     private boolean isFinished;
 
@@ -38,7 +38,7 @@ public class Game {
             }
         }
         PlacePlayers();
-        active_player = p2;
+        active_player = p1;
         PlayGame();
     }
 
