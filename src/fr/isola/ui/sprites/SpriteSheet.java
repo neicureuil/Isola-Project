@@ -9,7 +9,7 @@ import java.util.List;
 public class SpriteSheet {
 
     public static SpriteSheet INSTANCE = new SpriteSheet();
-    public static  final int Numbers = 4;
+    public static  final int Numbers = 5;
 
     private String path;
     private int spriteSize;
