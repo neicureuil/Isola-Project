@@ -18,7 +18,7 @@ public class SpriteSheet {
 
     public SpriteSheet() {
         this.path = "/resources/images/spritesheet.png";
-        this.spriteSize = 16;
+        this.spriteSize = 48;
         this.sprites = new ArrayList<BufferedImage>();
 
         LoadSprites();

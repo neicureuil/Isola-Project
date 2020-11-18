@@ -43,7 +43,7 @@ public class MenuPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(1080, 720);
+        return new Dimension(1280, 720);
     }
 
     public void PlayButtonClicked(ActionEvent e) {

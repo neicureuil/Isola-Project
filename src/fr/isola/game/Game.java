@@ -8,19 +8,23 @@ public class Game {
 
     public enum GameState{ MOVE, DESTROY, P1LOST, P2LOST };
 
+    private boolean isFinished;
+
     private GameState state;
     private GameConfig config;
 
     private boolean map[][]; // MAP => TRUE = NON DETRUIT (ON PEUT SE DEPLACER DESSUS) - FALSE = DETRUITE
 
     private Player p1, p2;
-    Player active_player;
+    private Player active_player;
 
     public Game(GameConfig config) {
         this.config = config;
         this.map = new boolean[config.getSizeX()][config.getSizeY()];
-        p1 = config.getP1();
-        p2 = config.getP2();
+        this.p1 = config.getP1();
+        this.p2 = config.getP2();
+
+        this.isFinished = false;
 
         Init();
         PlayGame();
@@ -62,8 +66,14 @@ public class Game {
     }
 
     void EndTurn() {
-        if(checkIfLost(p1)) state = GameState.P1LOST;
-        else if(checkIfLost(p2)) state = GameState.P2LOST;
+        if(checkIfLost(p1)){
+            state = GameState.P1LOST;
+            isFinished = true;
+        }
+        else if(checkIfLost(p2)){
+            state = GameState.P2LOST;
+            isFinished = true;
+        }
         else PlayGame();
     }
 
@@ -91,9 +101,7 @@ public class Game {
 
     public void SetPositionOnGrid/*SomeoneClicked*/(int x, int y) {
         if(state==GameState.MOVE && active_player instanceof HumanPlayer){
-            System.out.println("1");//
             if(map[x][y] && Math.abs( active_player.getX() - x ) <= 1 && Math.abs( active_player.getY() - y ) <= 1 && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y) ) {
-                System.out.println("2");//
                 active_player.setX(x);
                 active_player.setY(y);
                 state = GameState.DESTROY;
@@ -117,7 +125,5 @@ public class Game {
 
     public Player getActivePlayer() { return active_player; }
 
-
-
-    
+    public boolean isFinished() { return isFinished; }
 }

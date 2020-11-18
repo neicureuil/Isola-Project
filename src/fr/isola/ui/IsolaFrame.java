@@ -36,7 +36,7 @@ public class IsolaFrame extends JFrame {
 
     public void ShowGame(Game game) {
         getContentPane().removeAll();
-        getContentPane().add(new GamePanel(game));
+        getContentPane().add(new GamePanel(this, game));
         pack();
 
         //AudioManager.INSTANCE.SetBackgroundMusicVolume(-10);
@@ -50,5 +50,4 @@ public class IsolaFrame extends JFrame {
 
         //AudioManager.INSTANCE.PlayerBackgroundMusic("menu_theme");
     }
-
 }
