@@ -60,6 +60,7 @@ public class MenuPanel extends JPanel {
         JComponent comp = (JComponent) e.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
         win.dispose();
+        System.exit(0);
     }
 
     public void LaunchGameClicked(ActionEvent e) {
