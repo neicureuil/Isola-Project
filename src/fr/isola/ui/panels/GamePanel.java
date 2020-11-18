@@ -30,6 +30,7 @@ public class GamePanel extends JPanel  {
         this.results = new ResultPanel();
 
         this.tmpState = game.getState();
+        UpdateTitleText();
 
         setBackground(new Color(6,66,115) );
 
