@@ -1,5 +1,6 @@
 package fr.isola.ui.panels;
 
+import fr.isola.audio.AudioManager;
 import fr.isola.game.Game;
 import fr.isola.game.players.Player;
 import fr.isola.ui.IsolaFrame;
@@ -71,8 +72,10 @@ public class GamePanel extends JPanel  {
 
         if(game.getState() == Game.GameState.P1LOST) {
             results.SetText("Victoire du joueur 2");
+            AudioManager.INSTANCE.PlayVictorySound(game.getConfig().getP2().getSprite() + "");
         }else if(game.getState() == Game.GameState.P2LOST) {
             results.SetText("Victoire du joueur 1");
+            AudioManager.INSTANCE.PlayVictorySound(game.getConfig().getP2().getSprite() + "");
         }
 
         remove(renderer);
