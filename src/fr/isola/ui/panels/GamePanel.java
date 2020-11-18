@@ -75,7 +75,7 @@ public class GamePanel extends JPanel  {
             AudioManager.INSTANCE.PlayVictorySound(game.getConfig().getP2().getSprite() + "");
         }else if(game.getState() == Game.GameState.P2LOST) {
             results.SetText("Victoire du joueur 1");
-            AudioManager.INSTANCE.PlayVictorySound(game.getConfig().getP2().getSprite() + "");
+            AudioManager.INSTANCE.PlayVictorySound(game.getConfig().getP1().getSprite() + "");
         }
 
         remove(renderer);
