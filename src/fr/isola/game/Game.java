@@ -38,8 +38,7 @@ public class Game {
             }
         }
         PlacePlayers();
-        active_player = p1;
-        PlayGame();
+        active_player = p2;
     }
 
     void PlacePlayers() {
