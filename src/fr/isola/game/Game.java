@@ -57,9 +57,10 @@ public class Game {
         active_player = (active_player.equals(p1))?(p2):(p1);
         state = GameState.MOVE;
         if(active_player instanceof IaPlayer) {
-            ((IaPlayer)active_player).move();
+            Player opponent = (active_player.equals(p1))?(p2):(p1);
+            ((IaPlayer)active_player).move(opponent, map);
             state = GameState.DESTROY;
-            ((IaPlayer)active_player).destroy();
+            ((IaPlayer)active_player).destroy(opponent, map);
             EndTurn();
         }
 
