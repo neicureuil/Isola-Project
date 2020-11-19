@@ -46,8 +46,8 @@ public class IaPlayer extends Player {
                         int y_min_2 = (j-1 < 0) ? 0 : j-1;
                         int y_max_2 = (j+1 >= sizeY) ? sizeY-1 : j+1;
 
-                        for(int j2=y_min_2; j2<y_max_2; j2++)
-                            for(int i2=x_min_2; i2<x_max_2; i2++)
+                        for(int j2=y_min_2; j2<=y_max_2; j2++)
+                            for(int i2=x_min_2; i2<=x_max_2; i2++)
                                 if(map[i2][j2] && (p2.getX() != i || p2.getY() != j))
                                     nbSafe++;
 
