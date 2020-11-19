@@ -1,9 +1,6 @@
 package fr.isola.game.players;
 
-import javafx.util.Pair;
-
-import java.security.KeyPair;
-import java.util.Dictionary;
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,18 +11,18 @@ public class IaPlayer extends Player {
     }
 
     public void move(Player opponent, boolean[][] map) {
-        Pair<Integer, Integer> tmpCoords = getMostSafePlace(this, opponent, map);
+        AbstractMap.SimpleEntry<Integer, Integer> tmpCoords = getMostSafePlace(this, opponent, map);
 
         setX(tmpCoords.getKey());
         setY(tmpCoords.getValue());
     }
 
     public void destroy(Player opponent, boolean[][] map) {
-        Pair<Integer, Integer> tmpCoords = getMostSafePlace(opponent, this, map);
+        AbstractMap.SimpleEntry<Integer, Integer> tmpCoords = getMostSafePlace(opponent, this, map);
         map[tmpCoords.getKey()][tmpCoords.getValue()] = false;
     }
 
-    private Pair<Integer, Integer> getMostSafePlace(Player p1, Player p2, boolean[][] map) {
+    private AbstractMap.SimpleEntry<Integer, Integer> getMostSafePlace(Player p1, Player p2, boolean[][] map) {
         int sizeX = map.length;
         int sizeY = map[0].length;
 
@@ -35,7 +32,7 @@ public class IaPlayer extends Player {
         int y_min = (p1.getY()-1 < 0) ? 0 : p1.getY()-1;
         int y_max = (p1.getY()+1 >= sizeY) ? sizeY-1 : p1.getY()+1;
 
-        Map<Pair<Integer, Integer>, Integer> safes = new HashMap<Pair<Integer, Integer>, Integer>();
+        Map<AbstractMap.SimpleEntry<Integer, Integer>, Integer> safes = new HashMap<AbstractMap.SimpleEntry<Integer, Integer>, Integer>();
 
         for(int j=y_min; j<= y_max; j++) {
             for(int i=x_min; i<= x_max; i++) {
@@ -56,15 +53,15 @@ public class IaPlayer extends Player {
 
 
                     }
-                    safes.put(new Pair<Integer, Integer>(i, j), nbSafe);
+                    safes.put(new AbstractMap.SimpleEntry<Integer, Integer>(i, j), nbSafe);
                 }
             }
         }
 
         int tmpVal = -1;
-        Pair<Integer, Integer> tmpCoords = null;
+        AbstractMap.SimpleEntry<Integer, Integer> tmpCoords = null;
 
-        for(Pair<Integer, Integer> coords : safes.keySet()) {
+        for(AbstractMap.SimpleEntry<Integer, Integer> coords : safes.keySet()) {
             if(safes.get(coords) > tmpVal) {
                 tmpVal = safes.get(coords);
                 tmpCoords = coords;
