@@ -58,6 +58,14 @@ public class Game {
         if(active_player instanceof IaPlayer) {
             Player opponent = (active_player.equals(p1))?(p2):(p1);
             ((IaPlayer)active_player).move(opponent, map);
+            if(checkIfLost(p1)){
+                state = GameState.P1LOST;
+                isFinished = true;
+            }
+            else if(checkIfLost(p2)){
+                state = GameState.P2LOST;
+                isFinished = true;
+            }
             state = GameState.DESTROY;
             ((IaPlayer)active_player).destroy(opponent, map);
             EndTurn();

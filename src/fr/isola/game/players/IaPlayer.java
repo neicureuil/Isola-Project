@@ -39,7 +39,6 @@ public class IaPlayer extends Player {
                 if(i != p1.getX() || j!=p1.getY()) {
                     int nbSafe = -1;
                     if (map[i][j] && (p2.getX() != i || p2.getY() != j)) {
-
                         int x_min_2 = (i-1 < 0) ? 0 : i-1;
                         int x_max_2 = (i+1 >= sizeX) ? sizeX-1 : i+1;
 
