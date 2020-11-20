@@ -1,6 +1,5 @@
 package fr.isola.ui;
 
-import fr.isola.audio.AudioManager;
 import fr.isola.game.Game;
 import fr.isola.ui.panels.GamePanel;
 import fr.isola.ui.panels.MenuPanel;
