@@ -13,6 +13,10 @@ public class Dataset {
         this.filename = filename;
     }
 
+    public void load() {
+
+    }
+
     public void initWriter() {
         try {
             fileWriter = new BufferedWriter(new FileWriter("./"+this.filename));

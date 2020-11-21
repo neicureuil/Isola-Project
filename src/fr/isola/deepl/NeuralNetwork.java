@@ -2,9 +2,13 @@ package fr.isola.deepl;
 
 import fr.isola.utils.Matrix;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class NeuralNetwork {
 
-    private double learningRate;
+    private double learningRate = 0.1;
     private int nbInputs, nbHiddens, nbOutputs;
 
     private Matrix weight_ih, weight_ho;
@@ -24,8 +28,6 @@ public class NeuralNetwork {
         this.bias_o = new Matrix(nbOutputs,1);
         this.bias_h.randomize();
         this.bias_o.randomize();
-
-        this.learningRate = 0.1;
     }
 
     public Matrix feedForward(double[] inputs) {
@@ -88,12 +90,39 @@ public class NeuralNetwork {
 
     }
 
-    public void save() {
+    public void save(String fileName) {
+        BufferedWriter fileWriter = null;
+        try {
+            fileWriter = new BufferedWriter(new FileWriter("./"+fileName));
 
+            fileWriter.write(nbInputs + " " + nbHiddens + " " + nbOutputs);
+            fileWriter.newLine();
+
+            double[] w_ih_arr = this.weight_ih.toArray();
+            for(double d : w_ih_arr) fileWriter.write(Double.toString(d) + " ");
+            fileWriter.newLine();
+
+            double[] bias_h_arr = this.bias_h.toArray();
+            for(double d : bias_h_arr) fileWriter.write(Double.toString(d) + " ");
+            fileWriter.newLine();
+
+            double[] w_ho_arr = this.weight_ho.toArray();
+            for(double d : w_ho_arr) fileWriter.write(Double.toString(d) + " ");
+            fileWriter.newLine();
+
+            double[] bias_o_arr = this.bias_o.toArray();
+            for(double d : bias_o_arr) fileWriter.write(Double.toString(d) + " ");
+
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void load() {
-
+    public static NeuralNetwork load(String fileName) {
+        
+        return null;
     }
 
 }
