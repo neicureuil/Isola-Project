@@ -1,4 +1,4 @@
-package fr.isola.ui.sprites;
+package fr.isola.utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

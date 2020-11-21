@@ -2,16 +2,11 @@ package fr.isola.ui.panels;
 
 import fr.isola.audio.AudioManager;
 import fr.isola.game.Game;
-import fr.isola.game.players.Player;
 import fr.isola.ui.IsolaFrame;
-import fr.isola.ui.sprites.ImageUtils;
-import fr.isola.ui.sprites.SpriteSheet;
-import fr.isola.ui.sprites.TileMap;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel  {
 
