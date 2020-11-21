@@ -8,12 +8,14 @@ public class GameConfig {
     private Player p2;
 
     private int sizeX, sizeY;
+    private boolean extractDatas;
 
-    public GameConfig(Player p1, Player p2, int sizeX, int sizeY) {
+    public GameConfig(Player p1, Player p2, int sizeX, int sizeY, boolean extractDatas) {
         this.p1 = p1;
         this.p2 = p2;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.extractDatas = extractDatas;
     }
 
     public Player getP1() {
@@ -28,4 +30,5 @@ public class GameConfig {
 
     public int getSizeY() { return sizeY; }
 
+    public boolean isExtractDatas() { return extractDatas; }
 }

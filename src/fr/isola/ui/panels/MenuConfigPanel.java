@@ -1,6 +1,7 @@
 package fr.isola.ui.panels;
 
 import fr.isola.game.GameConfig;
+import fr.isola.game.players.BestMoveIa;
 import fr.isola.game.players.HumanPlayer;
 import fr.isola.game.players.IaPlayer;
 import fr.isola.game.players.Player;
@@ -77,12 +78,12 @@ public class MenuConfigPanel extends JPanel {
     }
 
     public GameConfig getGameConfig() {
-        Player p1 = (playerSelect1.getPlayerType() == 0) ? new HumanPlayer() : new IaPlayer();
+        Player p1 = (playerSelect1.getPlayerType() == 0) ? new HumanPlayer() : new BestMoveIa();
         p1.setSprite(playerSelect1.getSelectedSprite());
 
-        Player p2 = (playerSelect2.getPlayerType() == 0) ? new HumanPlayer() : new IaPlayer();
+        Player p2 = (playerSelect2.getPlayerType() == 0) ? new HumanPlayer() : new BestMoveIa();
         p2.setSprite(playerSelect2.getSelectedSprite());
 
-        return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue());
+        return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue(), true);
     }
 }

@@ -10,7 +10,7 @@ public class Tester {
         double[] inputs = { 1.23, 0.25};
         double[] outputs = {0, 0, 1};
 
-        nn.train(inputs, outputs);
+        //nn.train(inputs, outputs);
 
     }
 
