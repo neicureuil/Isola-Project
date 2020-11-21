@@ -114,8 +114,8 @@ public class Game {
         if(!IsGameOver()) PlayGame();
     }
 
-    void MovePlayer(Player p, int x, int y, boolean isRegistable) {
-        if(isRegistable && config.isExtractDatas()) {
+    void MovePlayer(Player p, int x, int y, boolean isTrackable) {
+        if(isTrackable && config.isExtractDatas()) {
             RegisterData(moveDatas, p,x,y);
         }
         p.setX(x);
