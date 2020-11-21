@@ -1,8 +1,7 @@
 package fr.isola.deepl;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Vector;
 
 public class Dataset {
 
@@ -13,8 +12,23 @@ public class Dataset {
         this.filename = filename;
     }
 
-    public void load() {
-
+    public Vector<double[]> loadDatas() {
+        Vector<double[]> datas = new Vector<double[]>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("./"+this.filename));
+            String line = br.readLine();
+            while (line != null && !line.equals("")) {
+                String[] sArr = line.split(" ");
+                System.out.println(sArr.length);
+                line = br.readLine();
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return datas;
     }
 
     public void initWriter() {

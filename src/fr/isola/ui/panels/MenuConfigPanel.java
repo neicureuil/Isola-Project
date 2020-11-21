@@ -43,8 +43,8 @@ public class MenuConfigPanel extends JPanel {
         optGbc.fill = GridBagConstraints.HORIZONTAL;
         optGbc.insets = new Insets(10,10,10,10);
 
-        widthSelect = new NumberSelection("Largeur", 1,18, 1, 18);
-        heightSelect = new NumberSelection("Hauteur", 1,13, 1, 10);;
+        widthSelect = new NumberSelection("Largeur", 1,18, 1, 8);
+        heightSelect = new NumberSelection("Hauteur", 1,13, 1, 6);;
 
         optGbc.gridy = 0;
         optGbc.gridx = 0;

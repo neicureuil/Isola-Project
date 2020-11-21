@@ -179,7 +179,7 @@ public class Game {
 
 
     void RegisterData(Dataset dataset, Player p, int x, int y, boolean onlyMove) {
-        double[] datas = new double[config.getSizeX()*config.getSizeY() + 6 - ((onlyMove) ? -1 : 0)];
+        double[] datas = new double[config.getSizeX()*config.getSizeY() + 6 - ((onlyMove) ? 1 : 0)];
         datas[0] = p.getX();
         datas[1] = p.getY();
         Player opponent = (p.equals(p1)) ? p2 : p1;
