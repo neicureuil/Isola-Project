@@ -116,7 +116,7 @@ public class Game {
 
     void MovePlayer(Player p, int x, int y, boolean isTrackable) {
         if(isTrackable && config.isExtractDatas()) {
-            RegisterData(moveDatas, p,x,y);
+            RegisterData(moveDatas, p,x,y, true);
         }
         p.setX(x);
         p.setY(y);
@@ -124,7 +124,7 @@ public class Game {
 
     void DestroyCase(Player p, int x, int y) {
         if(config.isExtractDatas()) {
-            RegisterData(destroyDatas, p, x, y);
+            RegisterData(destroyDatas, p, x, y, false);
         }
         map[x][y] = false;
     }
@@ -178,8 +178,8 @@ public class Game {
     }
 
 
-    void RegisterData(Dataset dataset, Player p, int x, int y) {
-        double[] datas = new double[config.getSizeX()*config.getSizeY() + 6];
+    void RegisterData(Dataset dataset, Player p, int x, int y, boolean onlyMove) {
+        double[] datas = new double[config.getSizeX()*config.getSizeY() + 6 - ((onlyMove) ? -1 : 0)];
         datas[0] = p.getX();
         datas[1] = p.getY();
         Player opponent = (p.equals(p1)) ? p2 : p1;
@@ -199,8 +199,30 @@ public class Game {
                 counter++;
             }
         }
-        datas[datas.length-1] = x;
-        datas[datas.length-2] = y;
+        if(!onlyMove) {
+            datas[datas.length - 1] = x;
+            datas[datas.length - 2] = y;
+        }else{
+            int posId = 0;
+            if(p.getX()-1 == x && p.getY()-1 == y){
+                posId = 0;
+            }else if(p.getX() == x && p.getY()-1 == y){
+                posId = 1;
+            }else if(p.getX()+1 == x && p.getY()-1 == y){
+                posId = 2;
+            }else if(p.getX()-1 == x && p.getY() == y){
+                posId = 3;
+            }else if(p.getX()+1 == x && p.getY() == y){
+                posId = 4;
+            }else if(p.getX()-1 == x && p.getY()+1 == y){
+                posId = 5;
+            }else if(p.getX() == x && p.getY()+1 == y){
+                posId = 6;
+            }else if(p.getX()+1 == x && p.getY()+1 == y){
+                posId = 7;
+            }
+            datas[datas.length-1] = posId;
+        }
         dataset.addData(datas);
     }
 
