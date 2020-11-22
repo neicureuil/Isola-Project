@@ -65,6 +65,7 @@ public class Matrix {
 
     public static Matrix multiply(Matrix a, Matrix b) {
         if(a.cols != b.rows) {
+            System.out.println("[WARNING] Return new null Matrix");
             return null;
         }
         Matrix result = new Matrix(a.rows, b.cols);

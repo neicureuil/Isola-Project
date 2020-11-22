@@ -14,4 +14,10 @@ public class MathUtils {
         return (min + r.nextDouble() * (max - min));
     }
 
+    public static int random(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+
 }

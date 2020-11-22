@@ -59,7 +59,6 @@ public class AudioManager {
     public void SetBackgroundMusicVolume(float v) {
         FloatControl volCtrl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
         float newGain = volCtrl.getMinimum() + v * (volCtrl.getMaximum() - volCtrl.getMinimum()) / (v+1);
-        System.out.println(newGain + " - " + volCtrl.getMinimum() + " - " + volCtrl.getMaximum());
         volCtrl.setValue(newGain);
     }
 

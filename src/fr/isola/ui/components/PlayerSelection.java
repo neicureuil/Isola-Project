@@ -21,7 +21,8 @@ public class PlayerSelection extends JPanel {
 
         playerTypeBox = new JComboBox();
         playerTypeBox.addItem("Humain");
-        playerTypeBox.addItem("Ia");
+        playerTypeBox.addItem("BestMove Ia");
+        playerTypeBox.addItem("Neural Ia");
 
         nextButton = new MenuButton(">", 30, 64);
         nextButton.addActionListener(this::nextSprite);

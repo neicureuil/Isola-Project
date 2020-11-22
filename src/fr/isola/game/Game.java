@@ -1,10 +1,7 @@
 package fr.isola.game;
 
 import fr.isola.deepl.Dataset;
-import fr.isola.game.players.HumanPlayer;
-import fr.isola.game.players.IaPlayer;
-import fr.isola.game.players.Player;
-import fr.isola.game.players.Point;
+import fr.isola.game.players.*;
 
 public class Game {
 
@@ -237,4 +234,23 @@ public class Game {
     public Player getActivePlayer() { return active_player; }
 
     public boolean isFinished() { return isFinished; }
+
+    public static Player GetPlayerTypeFromId(int id, int sizeX, int sizeY) {
+        Player p = null;
+        switch (id) {
+            case 0:
+                p = new HumanPlayer();
+                break;
+            case 1:
+                p = new BestMoveIa();
+                break;
+            case 2:
+                p = new NeuralIa(sizeX, sizeY);
+                break;
+            default:
+                p = new HumanPlayer();
+                break;
+        }
+        return p;
+    }
 }

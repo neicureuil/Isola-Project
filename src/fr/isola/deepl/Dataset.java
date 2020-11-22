@@ -19,7 +19,11 @@ public class Dataset {
             String line = br.readLine();
             while (line != null && !line.equals("")) {
                 String[] sArr = line.split(" ");
-                System.out.println(sArr.length);
+                double[] lineData = new double[sArr.length];
+                for(int i=0; i<lineData.length; i++){
+                    lineData[i] = Double.parseDouble(sArr[i]);
+                }
+                datas.add(lineData);
                 line = br.readLine();
             }
             br.close();

@@ -1,10 +1,10 @@
 package fr.isola.deepl;
 
+import fr.isola.utils.MathUtils;
 import fr.isola.utils.Matrix;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Vector;
 
 public class NeuralNetwork {
 
@@ -30,8 +30,8 @@ public class NeuralNetwork {
         this.bias_o.randomize();
     }
 
-    public Matrix feedForward(double[] inputs) {
-        return feedForward(Matrix.fromArray(inputs));
+    public double[] predict(double[] inputs) {
+        return feedForward(Matrix.fromArray(inputs)).toArray();
     }
 
     public Matrix feedForward(Matrix inputs) {
@@ -46,11 +46,21 @@ public class NeuralNetwork {
         return outputs;
     }
 
-    public void train(double[] inputs, double[] targets) {
-        train(Matrix.fromArray(inputs), Matrix.fromArray(targets));
+    public void train(int epochs, Vector<double[]> inputs, Vector<double[]> targets, boolean randomize) {
+        for(int i=0; i<epochs; i++) {
+            System.out.println("NeuralNetwork Training : " + (i+1) + "/" +epochs);
+            for(int j=0; j<inputs.size(); j++) {
+                int id = j;
+                if(randomize) {
+                    id = MathUtils.random(0, inputs.size()-1);
+                }
+                double err = train(Matrix.fromArray(inputs.elementAt(id)), Matrix.fromArray(targets.elementAt(id)));
+                System.out.println("Loss : " + err);
+            }
+        }
     }
 
-    public void train(Matrix inputs, Matrix targets) {
+    public double train(Matrix inputs, Matrix targets) {
         Matrix hidden = Matrix.multiply(this.weight_ih, inputs);
         hidden.add(this.bias_h);
         hidden.map(ActivationFunc::sigmoid);
@@ -88,6 +98,14 @@ public class NeuralNetwork {
         this.weight_ih.add(weight_ih_deltas);
         this.bias_h.add(hidden_gradient);
 
+        // Calcul de l'erreur global => Methode MeanSquareError;
+        double mse = 0;
+        double[] errorArr = outputs_err.toArray();
+        for(int i=0; i<errorArr.length; i++) {
+            mse += Math.pow(errorArr[i], 2);
+        }
+        mse = 1.0 / errorArr.length * mse;
+        return mse;
     }
 
     public void save(String fileName) {
@@ -121,8 +139,63 @@ public class NeuralNetwork {
     }
 
     public static NeuralNetwork load(String fileName) {
-        
-        return null;
+        System.out.println("Start Model Loading ...");
+        NeuralNetwork nn = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("./"+fileName));
+
+            // LOAD MODEL SIZE
+            String[] modelDataStr = br.readLine().split(" ");
+            nn = new NeuralNetwork(Integer.parseInt(modelDataStr[0]), Integer.parseInt(modelDataStr[1]), Integer.parseInt(modelDataStr[2]));
+
+            // LOAD MODEL INPUT_HIDDEN WEIGHT
+            String[] modelWihStr = br.readLine().split(" ");
+            int counter = 0;
+            for(int i=0; i<nn.weight_ih.getRows(); i++) {
+                for (int j=0; j<nn.weight_ih.getCols(); j++) {
+                    nn.weight_ih.getMatrix()[i][j] = Double.parseDouble(modelWihStr[counter]);
+                    counter++;
+                }
+            }
+
+            // LOAD MODEL HIDDEN BIAS
+            String[] modelBiasHStr = br.readLine().split(" ");
+            for(int i=0; i<nn.bias_h.getRows(); i++) {
+                nn.bias_h.getMatrix()[i][0] = Double.parseDouble(modelBiasHStr[i]);
+            }
+
+            // LOAD MODEL HIDDEN_OUTPUT WEIGHT
+            String[] modelWhoStr = br.readLine().split(" ");
+            counter = 0;
+            for(int i=0; i<nn.weight_ho.getRows(); i++) {
+                for (int j=0; j<nn.weight_ho.getCols(); j++) {
+                    nn.weight_ho.getMatrix()[i][j] = Double.parseDouble(modelWhoStr[counter]);
+                    counter++;
+                }
+            }
+
+            // LOAD MODEL OUTPUT BIAS
+            String[] modelBiasOStr = br.readLine().split(" ");
+            for(int i=0; i<nn.bias_o.getRows(); i++) {
+               nn.bias_o.getMatrix()[i][0] = Double.parseDouble(modelBiasOStr[i]);
+            }
+
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Model Loaded !");
+        return nn;
+    }
+
+    public int getInputSize() {
+        return this.nbInputs;
+    }
+
+    public int getOutputSize() {
+        return this.nbOutputs;
     }
 
 }
