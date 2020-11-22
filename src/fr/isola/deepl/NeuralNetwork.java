@@ -46,7 +46,7 @@ public class NeuralNetwork {
         return outputs;
     }
 
-    public void train(int epochs, Vector<double[]> inputs, Vector<double[]> targets, boolean randomize) {
+    public void train(int epochs, int batchSize, Vector<double[]> inputs, Vector<double[]> targets, boolean randomize) {
         for(int i=0; i<epochs; i++) {
             System.out.println("NeuralNetwork Training : " + (i+1) + "/" +epochs);
             for(int j=0; j<inputs.size(); j++) {

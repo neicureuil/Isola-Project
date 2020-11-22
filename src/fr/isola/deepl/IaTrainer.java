@@ -26,7 +26,7 @@ public class IaTrainer {
             targets.add(outputLine);
         }
 
-        moveNN.train(1000, inputs, targets, true);
+        moveNN.train(1000, 50, inputs, targets, true);
         moveNN.save("move_"+sizeX+"_"+sizeY+".model");
     }
 
