@@ -45,7 +45,7 @@ public class IsolaFrame extends JFrame {
         getContentPane().add(menu);
         pack();
 
-        AudioManager.INSTANCE.PlayerBackgroundMusic("menu_theme");
-        AudioManager.INSTANCE.SetBackgroundMusicVolume(90f);
+        //AudioManager.INSTANCE.PlayerBackgroundMusic("menu_theme");
+        //AudioManager.INSTANCE.SetBackgroundMusicVolume(90f);
     }
 }

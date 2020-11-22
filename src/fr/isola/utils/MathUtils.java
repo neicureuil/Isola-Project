@@ -19,5 +19,14 @@ public class MathUtils {
         return r.nextInt((max - min) + 1) + min;
     }
 
+    public static double exp(double n) {
+        return Math.exp(n);
+    }
+
+    public static double invert(double n) {
+        if(n == 0) return n;
+        return 1/n;
+    }
+
 
 }

@@ -5,7 +5,7 @@ import java.util.Vector;
 public class IaTrainer {
 
     public void TrainNeuralIaMovement(Dataset moveDatas, int sizeX, int sizeY) {
-        NeuralNetwork moveNN = new NeuralNetwork(sizeX*sizeY + 4, 128, 8);
+        NeuralNetwork moveNN = new NeuralNetwork(sizeX*sizeY + 4, 48, 8);
         Vector<double[]> datas = moveDatas.loadDatas();
 
         Vector<double[]> inputs = new Vector<double[]>();
@@ -26,7 +26,7 @@ public class IaTrainer {
             targets.add(outputLine);
         }
 
-        moveNN.train(1000, 50, inputs, targets, true);
+        moveNN.train(1000, 100, inputs, targets, true);
         moveNN.save("move_"+sizeX+"_"+sizeY+".model");
     }
 

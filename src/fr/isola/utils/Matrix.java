@@ -29,6 +29,14 @@ public class Matrix {
         return this;
     }
 
+    public static Matrix add(Matrix a, double n) {
+        Matrix result = new Matrix(a.rows, a.cols);
+        for(int i=0; i<result.rows; i++)
+            for(int j=0; j<result.cols; j++)
+                result.matrix[i][j] = a.matrix[i][j] + n;
+        return result;
+    }
+
     public static Matrix subtract(Matrix a, Matrix b) {
         Matrix result = new Matrix(a.rows, a.cols);
         for(int i=0; i<result.rows; i++)
@@ -83,6 +91,13 @@ public class Matrix {
         return result;
     }
 
+    public Matrix divideValues(double n) {
+        for(int i=0; i<rows; i++)
+            for(int j=0; j<cols; j++)
+                matrix[i][j] /= n;
+        return this;
+    }
+
     public static Matrix transpose(Matrix a) {
         Matrix result = new Matrix(a.cols, a.rows);
 
@@ -130,6 +145,30 @@ public class Matrix {
             for(int j=0; j<cols; j++)
                 result[j*rows + i] = matrix[i][j];
         return result;
+    }
+
+    public double getMax() {
+        double m = matrix[0][0];
+        for(int i=0; i<rows; i++)
+            for(int j=0; j<cols; j++)
+                if(matrix[i][j] > m) m=matrix[i][j];
+        return m;
+    }
+
+    public double getSum() {
+        double m = 0;
+        for(int i=0; i<rows; i++)
+            for(int j=0; j<cols; j++)
+                m += matrix[i][j];
+        return m;
+    }
+
+    public Matrix copy() {
+        Matrix clone = new Matrix(rows, cols);
+        for(int i=0; i<rows; i++)
+            for(int j=0; j<cols; j++)
+                clone.matrix[i][j] = matrix[i][j];
+        return clone;
     }
 
     public double at(int i, int j) {
