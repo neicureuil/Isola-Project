@@ -140,14 +140,14 @@ public class Game {
     }
 
     boolean IsValidCase(int x, int y) {
-        if(map[x][y] && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y)) {
+        if(x>=0 && y>= 0 && x < config.getSizeX() && y < config.getSizeY() && map[x][y] && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y)) {
             return true;
         }
         return false;
     }
 
     boolean IsValidMove(Player p, int x, int y) {
-        if(map[x][y] && Math.abs( p.getX() - x ) <= 1 && Math.abs( p.getY() - y ) <= 1 && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y) ) {
+        if(x>=0 && y>= 0 && x < config.getSizeX() && y < config.getSizeY() && map[x][y] && Math.abs( p.getX() - x ) <= 1 && Math.abs( p.getY() - y ) <= 1 && (p1.getX()!=x || p1.getY()!=y) && (p2.getX()!=x  || p2.getY()!=y) ) {
             return true;
         }
         return false;

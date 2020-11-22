@@ -37,7 +37,7 @@ public class Dataset {
 
     public void initWriter() {
         try {
-            fileWriter = new BufferedWriter(new FileWriter("./"+this.filename));
+            fileWriter = new BufferedWriter(new FileWriter("./"+this.filename, true));
         } catch (IOException e) {
             e.printStackTrace();
         }

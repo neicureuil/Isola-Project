@@ -21,7 +21,7 @@ public class BestMoveIa extends Player implements IaPlayer {
         return (pts == null) ? new Point(0,0) : pts;
     }
 
-    private Point getMostSafePlace(Player p1, Player p2, boolean[][] map) {
+    private static Point getMostSafePlace(Player p1, Player p2, boolean[][] map) {
         int sizeX = map.length;
         int sizeY = map[0].length;
 
