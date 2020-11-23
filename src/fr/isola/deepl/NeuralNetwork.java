@@ -3,6 +3,8 @@ package fr.isola.deepl;
 import fr.isola.utils.Matrix;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 public class NeuralNetwork {
@@ -121,7 +123,7 @@ public class NeuralNetwork {
         System.out.println("Start Model Loading ...");
         NeuralNetwork nn = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./"+fileName));
+            BufferedReader br = new BufferedReader(new InputStreamReader(NeuralNetwork.class.getResourceAsStream("/resources/models/" + fileName + ".model")));
 
             // LOAD MODEL SIZE
             String[] modelDataStr = br.readLine().split(" ");

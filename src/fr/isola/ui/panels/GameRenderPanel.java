@@ -6,12 +6,14 @@ import fr.isola.ui.sprites.SpriteSheet;
 import fr.isola.ui.sprites.TileMap;
 import fr.isola.utils.ImageUtils;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class GameRenderPanel extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -28,10 +30,17 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
     private int destroyMask = 0xffff0000;
 
     private TileMap tmap;
+    private Image bgImage;
 
     public GameRenderPanel(Game game) {
         this.game = game;
         setBackground(new Color(6,66,115) );
+
+        try {
+            this.bgImage = ImageIO.read(getClass().getResource("/resources/images/game.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -55,6 +64,8 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+
+        g.drawImage(bgImage, 0, 0, getWidth(),getHeight(),0,0, bgImage.getWidth(null),bgImage.getHeight(null), null);
 
         g.setColor(Color.GREEN);
 

@@ -25,7 +25,7 @@ public class IaTrainer {
 
         nn.fit(X, Y, 5000);
 
-        nn.save("model_move.model");
+        nn.save("resources/models/move_8_6.model");
     }
 
     public void TrainNeuralIaDestroy(Dataset moveDatas, int sizeX, int sizeY) {
@@ -54,7 +54,7 @@ public class IaTrainer {
 
         List<Double> pred = nn.predict(X[0]);
 
-        nn.save("model_destroy.model");
+        nn.save("resources/models/destroy_8_6.model");
     }
 
 }

@@ -7,13 +7,15 @@ import java.util.List;
 public class NeuralIa extends Player implements IaPlayer{
 
     private NeuralNetwork moveBrain;
+    private NeuralNetwork destroyBrain;
     private int sizeX, sizeY;
 
     public NeuralIa(int sizeX, int sizeY) {
         super();
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.moveBrain = NeuralNetwork.load("model_move.model");
+        this.moveBrain = NeuralNetwork.load("move_8_6");
+        this.destroyBrain = NeuralNetwork.load("destroy_8_6");
     }
 
     @Override
@@ -98,7 +100,7 @@ public class NeuralIa extends Player implements IaPlayer{
             }
         }
 
-        List<Double> pred = moveBrain.predict(inputs);
+        List<Double> pred = destroyBrain.predict(inputs);
         int ptsId = getIndexOfLargest(pred);
 
         int pX = ptsId%8;
