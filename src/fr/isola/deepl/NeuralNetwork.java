@@ -3,8 +3,6 @@ package fr.isola.deepl;
 import fr.isola.utils.Matrix;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 public class NeuralNetwork {

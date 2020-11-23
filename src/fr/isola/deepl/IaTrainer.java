@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public class IaTrainer {
 
-    public void TrainNeuralIaMovement(Dataset moveDatas, int sizeX, int sizeY) {
+    public void TrainNeuralIaMovement(Dataset moveDatas) {
 
         Vector<double[]> datas = moveDatas.loadDatas();
         double[][] X = new double[datas.size()][52];
@@ -25,10 +25,10 @@ public class IaTrainer {
 
         nn.fit(X, Y, 5000);
 
-        nn.save("resources/models/move_8_6.model");
+        nn.save("move_8_6.model");
     }
 
-    public void TrainNeuralIaDestroy(Dataset moveDatas, int sizeX, int sizeY) {
+    public void TrainNeuralIaDestroy(Dataset moveDatas) {
 
         Vector<double[]> datas = moveDatas.loadDatas();
         double[][] X = new double[datas.size()][52];
@@ -54,7 +54,7 @@ public class IaTrainer {
 
         List<Double> pred = nn.predict(X[0]);
 
-        nn.save("resources/models/destroy_8_6.model");
+        nn.save("destroy_8_6.model");
     }
 
 }
