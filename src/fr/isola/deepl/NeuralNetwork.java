@@ -24,7 +24,6 @@ public class NeuralNetwork {
 
         bias_h= new Matrix(h,1);
         bias_o= new Matrix(o,1);
-
     }
 
     public List<Double> predict(double[] X)
@@ -46,6 +45,7 @@ public class NeuralNetwork {
     {
         for(int i=0;i<epochs;i++)
         {
+            System.out.println("Epoch : " + (i+1) + "/" + epochs);
             int sampleN =  (int)(Math.random() * X.length );
             this.train(X[sampleN], Y[sampleN]);
         }
@@ -87,7 +87,6 @@ public class NeuralNetwork {
 
         weights_ih.add(wih_delta);
         bias_h.add(h_gradient);
-
     }
 
     public void save(String fileName) {

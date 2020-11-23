@@ -72,20 +72,20 @@ public class Game {
             Player opponent = (active_player.equals(p1))?(p2):(p1);
             // IA MOVEMENT
             Point movePts = ia_player.move(opponent, map);
-            if(IsValidMove(active_player, movePts.getX(), movePts.getY())) {
-                MovePlayer(active_player, movePts.getX(), movePts.getY(), true);
-            }else{
+            if(!IsValidMove(active_player, movePts.getX(), movePts.getY())) {
                 System.out.println("[WARNING] Ia want to move to a wrong case !");
+                movePts = BestMoveIa.getMostSafePlace(active_player, opponent, map);
             }
+            MovePlayer(active_player, movePts.getX(), movePts.getY(), true);
             // IA DESTROY
             if(!IsGameOver()) {
                 state = GameState.DESTROY;
                 Point destryPts = ia_player.destroy(opponent, map);
-                if(IsValidCase(destryPts.getX(), destryPts.getY())) {
-                    DestroyCase(active_player, destryPts.getX(), destryPts.getY());
-                }else{
+                if(!IsValidCase(destryPts.getX(), destryPts.getY())) {
                     System.out.println("[WARNING] Ia want to destroy to a wrong case !");
+                    destryPts = BestMoveIa.getMostSafePlace(opponent, active_player, map);
                 }
+                DestroyCase(active_player, destryPts.getX(), destryPts.getY());
                 EndTurn();
             }
         }

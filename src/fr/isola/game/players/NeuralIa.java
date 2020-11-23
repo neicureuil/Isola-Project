@@ -38,8 +38,6 @@ public class NeuralIa extends Player implements IaPlayer{
             }
         }
 
-        System.out.println(inputs.length);
-
         List<Double> pred = moveBrain.predict(inputs);
         int ptsId = getIndexOfLargest(pred);
 
@@ -82,7 +80,32 @@ public class NeuralIa extends Player implements IaPlayer{
 
     @Override
     public Point destroy(Player opponent, boolean[][] map) {
-        return new Point(0,0);
+        double[] inputs = new double[52];
+
+        inputs[0] = getX();
+        inputs[1] = getY();
+        inputs[2] = opponent.getX();
+        inputs[3] = opponent.getY();
+
+        int counter = 4;
+        for (int i=0; i<8; i++) {
+            for (int j=0; j<6; j++){
+                if((getX() == i && getY() == j) || (opponent.getX() == i && opponent.getY() == j) || !map[i][j]){
+                    inputs[counter] = -1;
+                }else{
+                    inputs[counter] = 1;
+                }
+                counter++;
+            }
+        }
+
+        List<Double> pred = moveBrain.predict(inputs);
+        int ptsId = getIndexOfLargest(pred);
+
+        int pX = ptsId%8;
+        int pY = ptsId/8;
+
+        return new Point(pX, pY);
     }
 
     public int getIndexOfLargest( List<Double> array )

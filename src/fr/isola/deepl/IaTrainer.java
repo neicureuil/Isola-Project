@@ -5,34 +5,6 @@ import java.util.Vector;
 
 public class IaTrainer {
 
-    /*
-    public void TrainNeuralIaMovement(Dataset moveDatas, int sizeX, int sizeY) {
-        NeuralNetwork moveNN = new NeuralNetwork(sizeX*sizeY + 4, 52, 8);
-        Vector<double[]> datas = moveDatas.loadDatas();
-
-        Vector<double[]> inputs = new Vector<double[]>();
-        Vector<double[]> targets = new Vector<double[]>();
-
-        for(int i=0; i<datas.size(); i++) {
-            double[] inputsLine = new double[moveNN.getInputSize()];
-            double[] outputLine = new double[moveNN.getOutputSize()];
-
-            for(int j=0; j<moveNN.getInputSize(); j++) {
-                inputsLine[j] = datas.elementAt(i)[j];
-            }
-            for(int j=0; j< moveNN.getOutputSize(); j++) {
-                outputLine[j] = (j == datas.elementAt(i)[datas.elementAt(i).length-1]) ? 1 : 0;
-            }
-
-            inputs.add(inputsLine);
-            targets.add(outputLine);
-        }
-
-        moveNN.train(500, 2, inputs, targets, true);
-        moveNN.save("move_"+sizeX+"_"+sizeY+".model");
-    }
-    */
-
     public void TrainNeuralIaMovement(Dataset moveDatas, int sizeX, int sizeY) {
 
         Vector<double[]> datas = moveDatas.loadDatas();
@@ -48,22 +20,41 @@ public class IaTrainer {
             }
         }
 
-        NeuralNetwork nn = new NeuralNetwork(52,128,8);
+        NeuralNetwork nn = new NeuralNetwork(52,48,8);
         List<Double> output;
 
-        nn.fit(X, Y, 50000);
-
-        output = nn.predict(X[1]);
-        System.out.println(output.get(0).toString());
-        System.out.println(output.get(1).toString());
-        System.out.println(output.get(2).toString());
-        System.out.println(output.get(3).toString());
-        System.out.println(output.get(4).toString());
-        System.out.println(output.get(5).toString());
-        System.out.println(output.get(6).toString());
-        System.out.println(output.get(7).toString());
+        nn.fit(X, Y, 5000);
 
         nn.save("model_move.model");
+    }
+
+    public void TrainNeuralIaDestroy(Dataset moveDatas, int sizeX, int sizeY) {
+
+        Vector<double[]> datas = moveDatas.loadDatas();
+        double[][] X = new double[datas.size()][52];
+        double[][] Y = new double[datas.size()][48];
+
+        int cc = 0;
+        for(int i=0; i<datas.size(); i++) {
+            for(int j=0; j<52; j++) {
+                X[i][j] = datas.elementAt(i)[j];
+            }
+            int x = (int) datas.elementAt(i)[datas.elementAt(i).length-2];
+            int y = (int) datas.elementAt(i)[datas.elementAt(i).length-1];
+            for(int j=0; j<48; j++) {
+                Y[i][j] = ( ((int)(j/8) == y && j%8 == x) ? 1 : 0 );
+                if(Y[i][j] == 1) cc++;
+            }
+        }
+
+        NeuralNetwork nn = new NeuralNetwork(52,104,48);
+        List<Double> output;
+
+        nn.fit(X, Y, 10000);
+
+        List<Double> pred = nn.predict(X[0]);
+
+        nn.save("model_destroy.model");
     }
 
 }
