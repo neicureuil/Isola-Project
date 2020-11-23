@@ -7,6 +7,7 @@ import fr.isola.ui.components.MenuButton;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class MenuIaPanel extends JPanel {
 
@@ -57,11 +58,13 @@ public class MenuIaPanel extends JPanel {
     }
 
     public void trainMoveClick(ActionEvent e) {
-        trainer.TrainNeuralIaMovement(new Dataset("move_dataset_8_6.txt"));
+        if((new File("moves_dataset_8_6.txt")).exists())
+            trainer.TrainNeuralIaMovement(new Dataset("moves_dataset_8_6.txt"));
     }
 
     public void trainDestroyClick(ActionEvent e) {
-        trainer.TrainNeuralIaMovement(new Dataset("destroy_dataset_8_6.txt"));
+        if((new File("destroy_dataset_8_6.txt")).exists())
+            trainer.TrainNeuralIaDestroy(new Dataset("destroy_dataset_8_6.txt"));
     }
 
 

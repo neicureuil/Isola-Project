@@ -59,4 +59,16 @@ public class AudioManager {
         volCtrl.setValue(newGain);
     }
 
+    public void IncreaseVolume() {
+        AudioManager.VOLUME++;
+        if(AudioManager.VOLUME > 100) AudioManager.VOLUME = 100;
+        SetBackgroundMusicVolume();
+    }
+
+    public void DecreaseVolume() {
+        AudioManager.VOLUME--;
+        if(AudioManager.VOLUME < 0) AudioManager.VOLUME = 0;
+        SetBackgroundMusicVolume();
+    }
+
 }

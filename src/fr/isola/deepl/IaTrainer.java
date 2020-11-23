@@ -20,10 +20,10 @@ public class IaTrainer {
             }
         }
 
-        NeuralNetwork nn = new NeuralNetwork(52,48,8);
+        NeuralNetwork nn = new NeuralNetwork(52,48*2,8);
         List<Double> output;
 
-        nn.fit(X, Y, 5000);
+        nn.fit(X, Y, 100000);
 
         nn.save("move_8_6.model");
     }
@@ -47,10 +47,10 @@ public class IaTrainer {
             }
         }
 
-        NeuralNetwork nn = new NeuralNetwork(52,104,48);
+        NeuralNetwork nn = new NeuralNetwork(52,48*2,48);
         List<Double> output;
 
-        nn.fit(X, Y, 10000);
+        nn.fit(X, Y, 100000);
 
         List<Double> pred = nn.predict(X[0]);
 

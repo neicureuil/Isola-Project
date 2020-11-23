@@ -44,7 +44,7 @@ public class NeuralNetwork {
         for(int i=0;i<epochs;i++)
         {
             System.out.println("Epoch : " + (i+1) + "/" + epochs);
-            int sampleN =  (int)(Math.random() * X.length );
+            int sampleN =  (int)(Math.random() * X.length);
             this.train(X[sampleN], Y[sampleN]);
         }
     }

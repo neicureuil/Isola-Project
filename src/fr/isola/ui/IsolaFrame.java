@@ -6,10 +6,12 @@ import fr.isola.ui.panels.GamePanel;
 import fr.isola.ui.panels.MenuPanel;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class IsolaFrame extends JFrame {
+public class IsolaFrame extends JFrame implements KeyListener {
 
     private MenuPanel menu;
     private Timer timer;
@@ -19,6 +21,10 @@ public class IsolaFrame extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+        addKeyListener(this);
 
         menu = new MenuPanel(this);
         ShowMenu();
@@ -48,5 +54,24 @@ public class IsolaFrame extends JFrame {
         pack();
 
         AudioManager.INSTANCE.PlayerBackgroundMusic("menu_theme");
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == 109) {
+            AudioManager.INSTANCE.DecreaseVolume();
+        }else if(e.getKeyCode() == 107) {
+            AudioManager.INSTANCE.IncreaseVolume();
+        }
     }
 }
