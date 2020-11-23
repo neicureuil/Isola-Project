@@ -1,189 +1,178 @@
 package fr.isola.utils;
 
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Matrix {
+    double [][]data;
+    int rows,cols;
 
-    int rows, cols;
-    double[][] matrix;
-
-    public Matrix(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
-
-        this.matrix = new double[rows][cols];
-        for(double[] d : matrix) for(double d2 : d)  d2 = 0;
+    public Matrix(int rows,int cols) {
+        data= new double[rows][cols];
+        this.rows=rows;
+        this.cols=cols;
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                data[i][j]=Math.random()*2-1;
+            }
+        }
     }
 
-    public Matrix add(double n) {
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                matrix[i][j] += n;
-        return this;
+    public void print()
+    {
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                System.out.print(this.data[i][j]+" ");
+            }
+            System.out.println();
+        }
     }
 
-    public Matrix add(Matrix n) {
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                matrix[i][j] += n.matrix[i][j];
-        return this;
+    public void add(int scaler)
+    {
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                this.data[i][j]+=scaler;
+            }
+
+        }
     }
 
-    public static Matrix add(Matrix a, double n) {
-        Matrix result = new Matrix(a.rows, a.cols);
-        for(int i=0; i<result.rows; i++)
-            for(int j=0; j<result.cols; j++)
-                result.matrix[i][j] = a.matrix[i][j] + n;
-        return result;
+    public void add(Matrix m)
+    {
+        if(cols!=m.cols || rows!=m.rows) {
+            System.out.println("Shape Mismatch");
+            return;
+        }
+
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                this.data[i][j]+=m.data[i][j];
+            }
+        }
+    }
+
+    public static Matrix fromArray(double[]x)
+    {
+        Matrix temp = new Matrix(x.length,1);
+        for(int i =0;i<x.length;i++)
+            temp.data[i][0]=x[i];
+        return temp;
+
+    }
+
+    public List<Double> toArray() {
+        List<Double> temp= new ArrayList<Double>()  ;
+
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                temp.add(data[i][j]);
+            }
+        }
+        return temp;
     }
 
     public static Matrix subtract(Matrix a, Matrix b) {
-        Matrix result = new Matrix(a.rows, a.cols);
-        for(int i=0; i<result.rows; i++)
-            for(int j=0; j<result.cols; j++)
-                result.matrix[i][j] = a.matrix[i][j] - b.matrix[i][j];
-        return result;
-    }
-
-    public Matrix multiply(double n) {
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                matrix[i][j] *= n;
-        return this;
-    }
-
-    public Matrix multiply(Matrix b) {
-        if(cols != b.rows) {
-            return null;
-        }
-        Matrix result = new Matrix(rows, b.cols);
-        for(int i=0; i<result.rows; i++) {
-            for (int j=0; j<result.cols; j++) {
-
-                double sum = 0;
-                for(int k=0; k<cols; k++) {
-                    sum += matrix[i][k] * b.matrix[k][j];
-                }
-                result.matrix[i][j] = sum;
-
+        Matrix temp=new Matrix(a.rows,a.cols);
+        for(int i=0;i<a.rows;i++)
+        {
+            for(int j=0;j<a.cols;j++)
+            {
+                temp.data[i][j]=a.data[i][j]-b.data[i][j];
             }
         }
-        return this;
-    }
-
-    public static Matrix multiply(Matrix a, Matrix b) {
-        if(a.cols != b.rows) {
-            System.out.println("[WARNING] Return new null Matrix");
-            return null;
-        }
-        Matrix result = new Matrix(a.rows, b.cols);
-        for(int i=0; i<result.rows; i++) {
-            for (int j=0; j<result.cols; j++) {
-
-                double sum = 0;
-                for(int k=0; k<a.cols; k++) {
-                    sum += a.matrix[i][k] * b.matrix[k][j];
-                }
-                result.matrix[i][j] = sum;
-
-            }
-        }
-        return result;
-    }
-
-    public Matrix divideValues(double n) {
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                matrix[i][j] /= n;
-        return this;
+        return temp;
     }
 
     public static Matrix transpose(Matrix a) {
-        Matrix result = new Matrix(a.cols, a.rows);
-
-        for(int i=0; i<a.rows; i++)
-            for(int j=0; j<a.cols; j++)
-                result.matrix[j][i] = a.matrix[i][j];
-
-        return result;
+        Matrix temp=new Matrix(a.cols,a.rows);
+        for(int i=0;i<a.rows;i++)
+        {
+            for(int j=0;j<a.cols;j++)
+            {
+                temp.data[j][i]=a.data[i][j];
+            }
+        }
+        return temp;
     }
 
-    public void randomize(int min, int max) {
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                matrix[i][j] = MathUtils.random(min, max);
+    public static Matrix multiply(Matrix a, Matrix b) {
+        Matrix temp=new Matrix(a.rows,b.cols);
+        for(int i=0;i<temp.rows;i++)
+        {
+            for(int j=0;j<temp.cols;j++)
+            {
+                double sum=0;
+                for(int k=0;k<a.cols;k++)
+                {
+                    sum+=a.data[i][k]*b.data[k][j];
+                }
+                temp.data[i][j]=sum;
+            }
+        }
+        return temp;
     }
 
-    public void randomize() {
-        randomize(-1,1);
+    public void multiply(Matrix a) {
+        for(int i=0;i<a.rows;i++)
+        {
+            for(int j=0;j<a.cols;j++)
+            {
+                this.data[i][j]*=a.data[i][j];
+            }
+        }
+
     }
 
-    public void map(Function<Double, Double> fn) {
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                matrix[i][j] = fn.apply(matrix[i][j]);
+    public void multiply(double a) {
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                this.data[i][j]*=a;
+            }
+        }
+
     }
 
-    public static Matrix map(Matrix a, Function<Double, Double> fn) {
-        Matrix result = new Matrix(a.rows, a.cols);
-        for(int i=0; i<result.rows; i++)
-            for(int j=0; j<result.cols; j++)
-                result.matrix[i][j] = fn.apply(a.matrix[i][j]);
-        return result;
+    public void sigmoid() {
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+                this.data[i][j] = 1/(1+Math.exp(-this.data[i][j]));
+        }
+
     }
 
-    public static Matrix fromArray(double[] arr) {
-        Matrix result = new Matrix(arr.length, 1);
-        for(int i=0; i<arr.length; i++)
-            result.matrix[i][0] = arr[i];
-        return result;
+    public Matrix dsigmoid() {
+        Matrix temp=new Matrix(rows,cols);
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+                temp.data[i][j] = this.data[i][j] * (1-this.data[i][j]);
+        }
+        return temp;
     }
 
-    public double[] toArray() {
-        double[] result = new double[cols*rows];
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                result[j*rows + i] = matrix[i][j];
-        return result;
-    }
-
-    public double getMax() {
-        double m = matrix[0][0];
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                if(matrix[i][j] > m) m=matrix[i][j];
-        return m;
-    }
-
-    public double getSum() {
-        double m = 0;
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                m += matrix[i][j];
-        return m;
-    }
-
-    public Matrix copy() {
-        Matrix clone = new Matrix(rows, cols);
-        for(int i=0; i<rows; i++)
-            for(int j=0; j<cols; j++)
-                clone.matrix[i][j] = matrix[i][j];
-        return clone;
-    }
-
-    public double at(int i, int j) {
-        return matrix[i][j];
-    }
-
-    public double[][] getMatrix() {
-        return matrix;
+    public int getRows() {
+        return rows;
     }
 
     public int getCols() {
         return cols;
     }
 
-    public int getRows() {
-        return rows;
+    public double[][] getMatrix() {
+        return data;
     }
 }

@@ -11,7 +11,7 @@ class IsolaGame {
 
         IsolaFrame frame = new IsolaFrame();
         frame.setVisible(true);
-        //(new IaTrainer()).TrainNeuralIaMovement(new Dataset("moves_dataset_8_6.txt"), 8, 6);
+        (new IaTrainer()).TrainNeuralIaMovement(new Dataset("moves_dataset_8_6.txt"), 8, 6);
     }
     
 }

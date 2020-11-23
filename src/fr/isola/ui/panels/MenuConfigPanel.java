@@ -2,9 +2,6 @@ package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
 import fr.isola.game.GameConfig;
-import fr.isola.game.players.BestMoveIa;
-import fr.isola.game.players.HumanPlayer;
-import fr.isola.game.players.IaPlayer;
 import fr.isola.game.players.Player;
 import fr.isola.ui.components.MenuButton;
 import fr.isola.ui.components.NumberSelection;

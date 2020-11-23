@@ -1,6 +1,5 @@
 package fr.isola.ui.panels;
 
-import fr.isola.game.players.Player;
 import fr.isola.ui.components.MenuButton;
 import fr.isola.ui.layouts.LeftAndCenterLayout;
 

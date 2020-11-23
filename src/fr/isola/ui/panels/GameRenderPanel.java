@@ -2,9 +2,9 @@ package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
 import fr.isola.game.players.Player;
-import fr.isola.utils.ImageUtils;
 import fr.isola.ui.sprites.SpriteSheet;
 import fr.isola.ui.sprites.TileMap;
+import fr.isola.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;

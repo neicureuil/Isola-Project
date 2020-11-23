@@ -4,157 +4,90 @@ import fr.isola.utils.MathUtils;
 import fr.isola.utils.Matrix;
 
 import java.io.*;
+import java.util.List;
 import java.util.Vector;
 
 public class NeuralNetwork {
 
-    private double learningRate = 0.1;
+    Matrix weights_ih,weights_ho , bias_h,bias_o;
+    double l_rate=0.01;
+
     private int nbInputs, nbHiddens, nbOutputs;
 
-    private Matrix weight_ih, weight_ho;
-    private Matrix bias_h, bias_o;
+    public NeuralNetwork(int i,int h,int o) {
+        this.nbHiddens = h;
+        this.nbInputs = i;
+        this.nbOutputs = o;
 
-    public NeuralNetwork(int nbInputs, int nbHiddens, int nbOutputs) {
-        this.nbHiddens = nbHiddens;
-        this.nbInputs = nbInputs;
-        this.nbOutputs = nbOutputs;
+        weights_ih = new Matrix(h,i);
+        weights_ho = new Matrix(o,h);
 
-        this.weight_ih = new Matrix(nbHiddens, nbInputs);
-        this.weight_ho = new Matrix(nbOutputs, nbHiddens);
-        this.weight_ih.randomize();
-        this.weight_ho.randomize();
+        bias_h= new Matrix(h,1);
+        bias_o= new Matrix(o,1);
 
-        this.bias_h = new Matrix(nbHiddens, 1);
-        this.bias_o = new Matrix(nbOutputs,1);
-        this.bias_h.randomize();
-        this.bias_o.randomize();
     }
 
-    public double[] predict(double[] inputs) {
-        return feedForward(Matrix.fromArray(inputs)).toArray();
+    public List<Double> predict(double[] X)
+    {
+        Matrix input = Matrix.fromArray(X);
+        Matrix hidden = Matrix.multiply(weights_ih, input);
+        hidden.add(bias_h);
+        hidden.sigmoid();
+
+        Matrix output = Matrix.multiply(weights_ho,hidden);
+        output.add(bias_o);
+        output.sigmoid();
+
+        return output.toArray();
     }
 
-    public Matrix feedForward(Matrix inputs) {
-        Matrix hidden = Matrix.multiply(this.weight_ih, inputs);
-        hidden.add(this.bias_h);
-        hidden.map(ActivationFunc::sigmoid);
 
-        Matrix outputs = Matrix.multiply(this.weight_ho, hidden);
-        outputs.add(this.bias_o);
-        //outputs.map(ActivationFunc::sigmoid);
-
-        return ActivationFunc.softmax(outputs);
-    }
-
-    public void train(int epochs, int batchSize, Vector<double[]> inputs, Vector<double[]> targets, boolean randomize) {
-        for(int i=0; i<epochs; i++) {
-            System.out.println("NeuralNetwork Training : " + (i+1) + "/" +epochs);
-            int batch = 0;
-            Matrix meanWhoDelta = null;
-            Matrix meanGradient = null;
-            Matrix meanWihDelta = null;
-            Matrix meanHiddenGradient = null;
-            double meanError = 0;
-            double meanEpochError = 0;
-
-            for(int j=0; j<inputs.size(); j++) {
-                int id = (randomize) ? MathUtils.random(0, inputs.size()-1) :  j;
-
-                Object[] trainDatas = train(Matrix.fromArray(inputs.elementAt(id)), Matrix.fromArray(targets.elementAt(id)));
-
-                if(batch == 0) {
-                    meanWhoDelta = (Matrix) trainDatas[0];
-                    meanGradient = (Matrix) trainDatas[1];
-                    meanWihDelta = (Matrix) trainDatas[2];
-                    meanHiddenGradient = (Matrix) trainDatas[3];
-                    meanError = (double) trainDatas[4];
-                    batch++;
-                }else if(batch >= batchSize-1) {
-                    batch = 0;
-
-                    meanWhoDelta.divideValues(batchSize);
-                    meanGradient.divideValues(batchSize);
-                    meanWihDelta.divideValues(batchSize);
-                    meanHiddenGradient.divideValues(batchSize);
-
-                    this.weight_ho.add(meanWhoDelta);
-                    this.bias_o.add(meanGradient);
-                    this.weight_ih.add(meanWihDelta);
-                    this.bias_h.add(meanHiddenGradient);
-
-                    meanError /= batchSize;
-                    meanEpochError += meanError;
-                }else{
-                    batch++;
-
-                    meanWhoDelta.add((Matrix) trainDatas[0]);
-                    meanGradient.add((Matrix) trainDatas[1]);
-                    meanWihDelta.add((Matrix) trainDatas[2]);
-                    meanHiddenGradient.add((Matrix) trainDatas[3]);
-                    meanError += (double) trainDatas[4];
-                }
-            }
-            meanEpochError /= (inputs.size() / batchSize);
-            System.out.println("Loss : " + meanEpochError);
+    public void fit(double[][]X,double[][]Y,int epochs)
+    {
+        for(int i=0;i<epochs;i++)
+        {
+            int sampleN =  (int)(Math.random() * X.length );
+            this.train(X[sampleN], Y[sampleN]);
         }
     }
 
-    public Object[] train(Matrix inputs, Matrix targets) {
-        Object[] trainDatas = new Object[5];
+    public void train(double [] X,double [] Y)
+    {
+        Matrix input = Matrix.fromArray(X);
+        Matrix hidden = Matrix.multiply(weights_ih, input);
+        hidden.add(bias_h);
+        hidden.sigmoid();
 
-        Matrix hidden = Matrix.multiply(this.weight_ih, inputs);
-        hidden.add(this.bias_h);
-        hidden.map(ActivationFunc::sigmoid);
+        Matrix output = Matrix.multiply(weights_ho,hidden);
+        output.add(bias_o);
+        output.sigmoid();
 
-        Matrix outputs = Matrix.multiply(this.weight_ho, hidden);
-        outputs.add(this.bias_o);
-        //outputs.map(ActivationFunc::relu);
-        outputs = ActivationFunc.softmax(outputs);
+        Matrix target = Matrix.fromArray(Y);
 
-        // Calcul de l'erreur de outputs
-        Matrix outputs_err = Matrix.subtract(targets, outputs);
+        Matrix error = Matrix.subtract(target, output);
+        Matrix gradient = output.dsigmoid();
+        gradient.multiply(error);
+        gradient.multiply(l_rate);
 
-        // Calcul de l'erreur de hidden
-        Matrix weight_ho_t = Matrix.transpose(this.weight_ho);
-        Matrix hidden_err = Matrix.multiply(weight_ho_t, outputs_err);
+        Matrix hidden_T = Matrix.transpose(hidden);
+        Matrix who_delta =  Matrix.multiply(gradient, hidden_T);
 
-        // Calcul du gradient pour outputs
-        //Matrix gradients = Matrix.map(outputs, ActivationFunc::drelu);
-        Matrix gradients = ActivationFunc.dsoftmax(outputs);
-        gradients.multiply(outputs_err);
-        gradients.multiply(this.learningRate);
+        weights_ho.add(who_delta);
+        bias_o.add(gradient);
 
-        // Calcul des deltas  pour weight_ho
-        Matrix hidden_t = Matrix.transpose(hidden);
-        Matrix weight_ho_deltas = Matrix.multiply(gradients, hidden_t);
-        trainDatas[0] = weight_ho_deltas;
-        trainDatas[1] = gradients;
-        //this.weight_ho.add(weight_ho_deltas);
-        //this.bias_o.add(gradients);
+        Matrix who_T = Matrix.transpose(weights_ho);
+        Matrix hidden_errors = Matrix.multiply(who_T, error);
 
-        // Calcul du gradient pour hidden
-        Matrix hidden_gradient = Matrix.map(hidden, ActivationFunc::dsigmoid);
-        hidden_gradient.multiply(hidden_err);
-        hidden_gradient.multiply(this.learningRate);
+        Matrix h_gradient = hidden.dsigmoid();
+        h_gradient.multiply(hidden_errors);
+        h_gradient.multiply(l_rate);
 
-        // Calcul des deltas  pour weight_ih
-        Matrix inputs_t = Matrix.transpose(inputs);
-        Matrix weight_ih_deltas = Matrix.multiply(hidden_gradient, inputs_t);
-        //this.weight_ih.add(weight_ih_deltas);
-        //this.bias_h.add(hidden_gradient);
-        trainDatas[2] = weight_ih_deltas;
-        trainDatas[3] = hidden_gradient;
+        Matrix i_T = Matrix.transpose(input);
+        Matrix wih_delta = Matrix.multiply(h_gradient, i_T);
 
-        // Calcul de l'erreur global => Methode MeanSquareError;
-        double mse = 0;
-        double[] errorArr = outputs_err.toArray();
-        for(int i=0; i<errorArr.length; i++) {
-            mse += Math.pow(errorArr[i], 2);
-        }
-        mse = 1.0 / errorArr.length * mse;
-        trainDatas[4] = mse;
+        weights_ih.add(wih_delta);
+        bias_h.add(h_gradient);
 
-        return trainDatas;
     }
 
     public void save(String fileName) {
@@ -165,19 +98,19 @@ public class NeuralNetwork {
             fileWriter.write(nbInputs + " " + nbHiddens + " " + nbOutputs);
             fileWriter.newLine();
 
-            double[] w_ih_arr = this.weight_ih.toArray();
+            List<Double> w_ih_arr = this.weights_ih.toArray();
             for(double d : w_ih_arr) fileWriter.write(Double.toString(d) + " ");
             fileWriter.newLine();
 
-            double[] bias_h_arr = this.bias_h.toArray();
+            List<Double> bias_h_arr = this.bias_h.toArray();
             for(double d : bias_h_arr) fileWriter.write(Double.toString(d) + " ");
             fileWriter.newLine();
 
-            double[] w_ho_arr = this.weight_ho.toArray();
+            List<Double> w_ho_arr = this.weights_ho.toArray();
             for(double d : w_ho_arr) fileWriter.write(Double.toString(d) + " ");
             fileWriter.newLine();
 
-            double[] bias_o_arr = this.bias_o.toArray();
+            List<Double> bias_o_arr = this.bias_o.toArray();
             for(double d : bias_o_arr) fileWriter.write(Double.toString(d) + " ");
 
             fileWriter.flush();
@@ -200,9 +133,9 @@ public class NeuralNetwork {
             // LOAD MODEL INPUT_HIDDEN WEIGHT
             String[] modelWihStr = br.readLine().split(" ");
             int counter = 0;
-            for(int i=0; i<nn.weight_ih.getRows(); i++) {
-                for (int j=0; j<nn.weight_ih.getCols(); j++) {
-                    nn.weight_ih.getMatrix()[i][j] = Double.parseDouble(modelWihStr[counter]);
+            for(int i=0; i<nn.weights_ih.getRows(); i++) {
+                for (int j=0; j<nn.weights_ih.getCols(); j++) {
+                    nn.weights_ih.getMatrix()[i][j] = Double.parseDouble(modelWihStr[counter]);
                     counter++;
                 }
             }
@@ -216,9 +149,9 @@ public class NeuralNetwork {
             // LOAD MODEL HIDDEN_OUTPUT WEIGHT
             String[] modelWhoStr = br.readLine().split(" ");
             counter = 0;
-            for(int i=0; i<nn.weight_ho.getRows(); i++) {
-                for (int j=0; j<nn.weight_ho.getCols(); j++) {
-                    nn.weight_ho.getMatrix()[i][j] = Double.parseDouble(modelWhoStr[counter]);
+            for(int i=0; i<nn.weights_ho.getRows(); i++) {
+                for (int j=0; j<nn.weights_ho.getCols(); j++) {
+                    nn.weights_ho.getMatrix()[i][j] = Double.parseDouble(modelWhoStr[counter]);
                     counter++;
                 }
             }
@@ -237,14 +170,6 @@ public class NeuralNetwork {
         }
         System.out.println("Model Loaded !");
         return nn;
-    }
-
-    public int getInputSize() {
-        return this.nbInputs;
-    }
-
-    public int getOutputSize() {
-        return this.nbOutputs;
     }
 
 }

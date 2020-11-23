@@ -1,17 +1,11 @@
 package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
-import fr.isola.game.players.HumanPlayer;
-import fr.isola.game.players.IaPlayer;
 import fr.isola.ui.IsolaFrame;
-import fr.isola.ui.components.MenuButton;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 public class MenuPanel extends JPanel {
 
