@@ -13,6 +13,7 @@ public class MenuPanel extends JPanel {
 
     private IsolaFrame mainFrame;
 
+    private MenuIaPanel iaPanel;
     private MenuConfigPanel optionPanel;
     private LeftMenuPanel leftPanel;
     private boolean optionPanelShow = false;
@@ -37,6 +38,11 @@ public class MenuPanel extends JPanel {
         leftPanel.getIaBtn().addActionListener(this::IaButtonClicked);
         leftPanel.getQuitBtn().addActionListener(this::QuitButtonClicked);
         // END LEFT PANEL
+
+
+        // IA PANEL
+        iaPanel = new MenuIaPanel();
+        // IA PANEL END
 
         // OPTION PANEL
         optionPanel = new MenuConfigPanel();
