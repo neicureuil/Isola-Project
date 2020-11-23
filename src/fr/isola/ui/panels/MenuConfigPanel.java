@@ -2,6 +2,7 @@ package fr.isola.ui.panels;
 
 import fr.isola.game.Game;
 import fr.isola.game.GameConfig;
+import fr.isola.game.players.NeuralIa;
 import fr.isola.game.players.Player;
 import fr.isola.ui.components.MenuButton;
 import fr.isola.ui.components.NumberSelection;
@@ -81,6 +82,11 @@ public class MenuConfigPanel extends JPanel {
 
         Player p2 = Game.GetPlayerTypeFromId(playerSelect2.getPlayerType(), widthSelect.getValue(), heightSelect.getValue());
         p2.setSprite(playerSelect2.getSelectedSprite());
+
+        if(p2 instanceof NeuralIa || p1 instanceof NeuralIa) {
+            widthSelect.setValue(8);
+            heightSelect.setValue(6);
+        }
 
         return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue(), false);
     }

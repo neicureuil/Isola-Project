@@ -3,7 +3,6 @@ package fr.isola.game.players;
 import fr.isola.deepl.NeuralNetwork;
 
 import java.util.List;
-import java.util.Vector;
 
 public class NeuralIa extends Player implements IaPlayer{
 

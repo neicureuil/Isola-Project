@@ -26,4 +26,8 @@ public class NumberSelection extends JPanel {
         return (int) spinner.getValue();
     }
 
+    public void setValue(int v) {
+        spinner.setValue(v);
+    }
+
 }

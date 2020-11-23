@@ -8,6 +8,7 @@ import javax.sound.sampled.FloatControl;
 public class AudioManager {
 
     public static AudioManager INSTANCE = new AudioManager();
+    public static float VOLUME = 2;
 
     private  Clip musicClip;
 
@@ -25,6 +26,7 @@ public class AudioManager {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/resources/audio/" + name + ".wav"));
             musicClip.open(inputStream);
             musicClip.loop(Clip.LOOP_CONTINUOUSLY);
+            SetBackgroundMusicVolume();
             musicClip.start();
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -51,14 +53,9 @@ public class AudioManager {
         }
     }
 
-    public float GetBackgroundMusicVolume() {
-        FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
-        return gainControl.getValue();
-    }
-
-    public void SetBackgroundMusicVolume(float v) {
+    public void SetBackgroundMusicVolume() {
         FloatControl volCtrl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
-        float newGain = volCtrl.getMinimum() + v * (volCtrl.getMaximum() - volCtrl.getMinimum()) / (v+1);
+        float newGain = volCtrl.getMinimum() + VOLUME * (volCtrl.getMaximum() - volCtrl.getMinimum()) / (VOLUME+1);
         volCtrl.setValue(newGain);
     }
 

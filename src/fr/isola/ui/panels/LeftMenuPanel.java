@@ -8,6 +8,7 @@ import java.awt.*;
 public class LeftMenuPanel extends JPanel {
 
     private JButton playBtn;
+    private JButton iaBtn;
     private JButton quitBtn;
 
     public LeftMenuPanel() {
@@ -20,6 +21,7 @@ public class LeftMenuPanel extends JPanel {
         titleLabel.setForeground(Color.WHITE);
 
         playBtn = new MenuButton("Jouer");
+        iaBtn = new MenuButton("IA");
         quitBtn = new MenuButton("Quitter");
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -33,6 +35,7 @@ public class LeftMenuPanel extends JPanel {
         add(titleLabel, gbc);
         gbc.anchor = GridBagConstraints.CENTER;
         add(playBtn, gbc);
+        add(iaBtn, gbc);
         gbc.anchor = GridBagConstraints.PAGE_END;
         add(quitBtn, gbc);
 
@@ -44,5 +47,9 @@ public class LeftMenuPanel extends JPanel {
 
     public JButton getQuitBtn() {
         return quitBtn;
+    }
+
+    public JButton getIaBtn() {
+        return iaBtn;
     }
 }

@@ -1,11 +1,9 @@
 package fr.isola.deepl;
 
-import fr.isola.utils.MathUtils;
 import fr.isola.utils.Matrix;
 
 import java.io.*;
 import java.util.List;
-import java.util.Vector;
 
 public class NeuralNetwork {
 
