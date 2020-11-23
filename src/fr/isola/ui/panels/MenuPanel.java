@@ -17,6 +17,7 @@ public class MenuPanel extends JPanel {
     private MenuConfigPanel optionPanel;
     private LeftMenuPanel leftPanel;
     private boolean optionPanelShow = false;
+    private boolean iaPanelShow = false;
 
     private Image bgImage;
 
@@ -65,18 +66,30 @@ public class MenuPanel extends JPanel {
     public void PlayButtonClicked(ActionEvent e) {
         optionPanelShow = !optionPanelShow;
 
-        if(optionPanelShow) add(optionPanel, BorderLayout.CENTER);
-        else  remove(optionPanel);
-
+        if(optionPanelShow) {
+            if(iaPanelShow) {
+                iaPanelShow = false;
+                remove(iaPanel);
+            }
+            add(optionPanel, BorderLayout.CENTER);
+        }else {
+            remove(optionPanel);
+        }
         validate();
     }
 
     public void IaButtonClicked(ActionEvent e) {
-        optionPanelShow = !optionPanelShow;
+        iaPanelShow = !iaPanelShow;
 
-        if(optionPanelShow) add(optionPanel, BorderLayout.CENTER);
-        else  remove(optionPanel);
-
+        if(iaPanelShow){
+            if(optionPanelShow) {
+                optionPanelShow = false;
+                remove(optionPanel);
+            }
+            add(iaPanel, BorderLayout.CENTER);
+        }else {
+            remove(iaPanel);
+        }
         validate();
     }
 
