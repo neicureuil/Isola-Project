@@ -4,12 +4,32 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Classe représentant et gérant une TileMap.
+ */
 public class TileMap {
 
+    /**
+     * Chemin du fichier de la map.
+     */
     private String path;
+    /**
+     * Taille d'une tile dans le fichier.
+     */
     private int tileSize;
+    /**
+     * Tableau des tiles.
+     */
     private BufferedImage[][] tiles;
 
+    /**
+     * Contructeur qui appel l'initialisation de la TileMap.
+     * Appel LoadTiles().
+     * @param path Chemin du fichier de la map.
+     * @param tileSize Taille d'une tile dans le fichier.
+     * @param nbX Nombre de ligne de tiles dans le fichier.
+     * @param nbY Nombre de colones de tiles dans le fichier.
+     */
     public TileMap(String path, int tileSize, int nbX, int nbY) {
         this.path = path;
         this.tileSize = tileSize;
@@ -17,6 +37,11 @@ public class TileMap {
         LoadTiles(nbX, nbY);
     }
 
+    /**
+     * Charge en memoire chaque tile afin d'eviter d'avoir a le refaire a chaque actualisation de la fenetre.
+     * @param nbX Nombre de ligne de tiles dans le fichier.
+     * @param nbY Nombre de colones de tiles dans le fichier.
+     */
     private void LoadTiles(int nbX, int nbY) {
         BufferedImage image = null;
         try {
@@ -29,10 +54,22 @@ public class TileMap {
                 tiles[i][j] = image.getSubimage(i * tileSize,j * tileSize, tileSize, tileSize);
     }
 
+    /**
+     * Permet de recuperer une tile.
+     * @param xi Numero de ligne de la tile.
+     * @param yi Numero de colone de la tile.
+     * @return La tile.
+     */
     private BufferedImage getImageFromMap(int xi, int yi) {
         return tiles[xi][yi];
     }
 
+
+    /**
+     * Permet de recuper une tile a partir d'une clé qui réprésente les tiles autours de celle que l'on souhaite.
+     * @param key La clé.
+     * @return La tile correspondante.
+     */
     public BufferedImage getTile(String key) {
         // 0 1 2
         // 3 * 4
