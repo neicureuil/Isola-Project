@@ -5,13 +5,51 @@ import fr.isola.utils.Matrix;
 import java.io.*;
 import java.util.List;
 
+/**
+ * Classe représentant et gérant un réseau neuronal basique.
+ */
 public class NeuralNetwork {
 
-    Matrix weights_ih,weights_ho , bias_h,bias_o;
+    /**
+     * Matices representant les points entres la layer d'input et l'hidden.
+     */
+    Matrix weights_ih;
+    /**
+     * Matices representant les points entres la layer hidden et l'output.
+     */
+    Matrix weights_ho;
+    /**
+     * Bias pour la layer hidden.
+     */
+    Matrix bias_h;
+    /**
+     * Bias pour la layer output.
+     */
+    Matrix bias_o;
+    /**
+     * Vitesse d'apprentissage du réseau.
+     */
     double l_rate=0.01;
 
-    private int nbInputs, nbHiddens, nbOutputs;
+    /**
+     * Nombre d'unit (neurone) dans la la layer input.
+     */
+    private  int nbInputs;
+    /**
+     * Nombre d'unit (neurone) dans la la layer hidden.
+     */
+    private int nbHiddens;
+    /**
+     * Nombre d'unit (neurone) dans la la layer ouptut.
+     */
+    private int nbOutputs;
 
+    /**
+     * Contructeur permetant d'initialiser un NeuralNetwork.
+     * @param i Nombre d'unit (neurone) dans la la layer input.
+     * @param h Nombre d'unit (neurone) dans la la layer hidden.
+     * @param o Nombre d'unit (neurone) dans la la layer ouptut.
+     */
     public NeuralNetwork(int i,int h,int o) {
         this.nbHiddens = h;
         this.nbInputs = i;
@@ -24,8 +62,12 @@ public class NeuralNetwork {
         bias_o= new Matrix(o,1);
     }
 
-    public List<Double> predict(double[] X)
-    {
+    /**
+     * Fonction qui permet de faire une prédiction a partie de données.
+     * @param X Une array de double contenant les données d'entrées pour la prédiction.
+     * @return Une liste de double contant les valeurs de la layeur d'output apres la prédiction.
+     */
+    public List<Double> predict(double[] X) {
         Matrix input = Matrix.fromArray(X);
         Matrix hidden = Matrix.multiply(weights_ih, input);
         hidden.add(bias_h);
@@ -39,18 +81,26 @@ public class NeuralNetwork {
     }
 
 
-    public void fit(double[][]X,double[][]Y,int epochs)
-    {
-        for(int i=0;i<epochs;i++)
-        {
+    /**
+     * Fonction permettant de preparer et lancer l'entrainement du réseau.
+     * @param X Une liste des données d'entrées.
+     * @param Y Une liste des résultats attendues des données d'entrées.
+     * @param epochs Nombre de d'iterations d'entrainement.
+     */
+    public void fit(double[][]X,double[][]Y,int epochs) {
+        for(int i=0;i<epochs;i++) {
             System.out.println("Epoch : " + (i+1) + "/" + epochs);
             int sampleN =  (int)(Math.random() * X.length);
             this.train(X[sampleN], Y[sampleN]);
         }
     }
 
-    public void train(double [] X,double [] Y)
-    {
+    /**
+     * Fonction qui peremet d'effectuer une itération d'entrainement.
+     * @param X Les données d'entrées.
+     * @param Y Le résultat attendue.
+     */
+    public void train(double [] X,double [] Y) {
         Matrix input = Matrix.fromArray(X);
         Matrix hidden = Matrix.multiply(weights_ih, input);
         hidden.add(bias_h);
@@ -87,6 +137,10 @@ public class NeuralNetwork {
         bias_h.add(h_gradient);
     }
 
+    /**
+     * Permet de sauvegarder le réseau dans un fichier.
+     * @param fileName Nom du fichier de sortie.
+     */
     public void save(String fileName) {
         BufferedWriter fileWriter = null;
         try {
@@ -117,6 +171,11 @@ public class NeuralNetwork {
         }
     }
 
+    /**
+     * Permet de charger un réseau sauvegardé dans un fichier.
+     * @param fileName Nom du fichier contenant le réseau (doit être dans resources/models et terminer en .model).
+     * @return Une instance du NeuralNetwork.
+     */
     public static NeuralNetwork load(String fileName) {
         System.out.println("Start Model Loading ...");
         NeuralNetwork nn = null;

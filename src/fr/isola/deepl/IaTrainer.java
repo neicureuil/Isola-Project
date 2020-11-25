@@ -3,8 +3,16 @@ package fr.isola.deepl;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * Classe qui gère l'entrement des IA en DeepLearning.
+ */
 public class IaTrainer {
 
+    /**
+     * Fonction qui permet d'entrainer une réseau neuronal pour le déplacement.
+     * Sauvegarde le résultat dans le fichier move_8_6.model.
+     * @param moveDatas Dataset des données d'entrainement pour le déplacement.
+     */
     public void TrainNeuralIaMovement(Dataset moveDatas) {
 
         Vector<double[]> datas = moveDatas.loadDatas();
@@ -28,9 +36,14 @@ public class IaTrainer {
         nn.save("move_8_6.model");
     }
 
-    public void TrainNeuralIaDestroy(Dataset moveDatas) {
+    /**
+     * Fonction qui permet d'entrainer une réseau neuronal pour la destruction de case.
+     * Sauvegarde le résultat dans le fichier destroy_8_6.model.
+     * @param destroyData Dataset des données d'entrainement pour le destruction de case.
+     */
+    public void TrainNeuralIaDestroy(Dataset destroyData) {
 
-        Vector<double[]> datas = moveDatas.loadDatas();
+        Vector<double[]> datas = destroyData.loadDatas();
         double[][] X = new double[datas.size()][52];
         double[][] Y = new double[datas.size()][48];
 
