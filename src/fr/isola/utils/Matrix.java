@@ -189,6 +189,7 @@ public class Matrix {
     }
     /**
      * Applique la fonction dsigmoid (derivé de sigmoid) a chaque valeur de la matrice.
+     * @return La matrice derivée
      */
     public Matrix dsigmoid() {
         Matrix temp=new Matrix(rows,cols);

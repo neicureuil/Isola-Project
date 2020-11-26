@@ -66,7 +66,7 @@ public class PlayerSelection extends JPanel {
 
     /**
      * Action du bouton nextButton qui selectionne le sprite suivant.
-     * @param e
+     * @param e L'evenement.
      */
     private void nextSprite(ActionEvent e) {
         imageIndex = (imageIndex+1)%SpriteSheet.Numbers;
@@ -76,7 +76,7 @@ public class PlayerSelection extends JPanel {
 
     /**
      * Action du bouton previousButton qui selectionne le sprite precedent.
-     * @param e
+     * @param e L'evenement.
      */
     private void previousSprite(ActionEvent e) {
         imageIndex--;

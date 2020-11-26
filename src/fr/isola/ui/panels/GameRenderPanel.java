@@ -122,7 +122,7 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
 
     /**
      * Rendu des différents éléments du jeu.
-     * @param g
+     * @param g Graphisme
      */
     @Override
     public void paint(Graphics g) {
@@ -144,7 +144,7 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
 
     /**
      * Rendu d'un joueur.
-     * @param g
+     * @param g Graphisme
      * @param p Le joueur a afficher.
      */
     private void drawPlayer(Graphics g, Player p) {
@@ -155,7 +155,7 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
 
     /**
      * Rendu d'un tile.
-     * @param g
+     * @param g Graphisme
      * @param x Coords x du tile.
      * @param y Coords y du tile.
      */
@@ -204,7 +204,7 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
 
     /**
      * Evenement quand on clique sur un bouton de la souris.
-     * @param e
+     * @param e L'evenement.
      */
     @Override
     public void mousePressed(MouseEvent e) {
@@ -246,7 +246,7 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
 
     /**
      * Recupere les coords x et y de la souris.
-     * @param e
+     * @param e L'evenement.
      */
     @Override
     public void mouseMoved(MouseEvent e) {

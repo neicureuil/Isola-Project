@@ -83,7 +83,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Affichage des élements et de l'image de fond.
-     * @param g
+     * @param g L'evenement.
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -101,7 +101,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Fonction appelée quand on clique sur un le boutton jouer.
-     * @param e
+     * @param e L'evenement.
      */
     public void PlayButtonClicked(ActionEvent e) {
         optionPanelShow = !optionPanelShow;
@@ -120,7 +120,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Fonction appelée quand on clique sur un le boutton IA.
-     * @param e
+     * @param e L'evenement.
      */
     public void IaButtonClicked(ActionEvent e) {
         iaPanelShow = !iaPanelShow;
@@ -139,7 +139,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Fonction appelée quand on clique sur le boutton quitter.
-     * @param e
+     * @param e L'evenement.
      */
     public void QuitButtonClicked(ActionEvent e) {
         JComponent comp = (JComponent) e.getSource();
@@ -150,7 +150,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Fonction appelée quand on clique sur le bouton de lancement du jeu?.
-     * @param e
+     * @param e L'evenement.
      */
     public void LaunchGameClicked(ActionEvent e) {
         mainFrame.ShowGame(new Game(optionPanel.getGameConfig()));

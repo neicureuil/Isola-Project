@@ -67,7 +67,7 @@ public class GamePanel extends JPanel  {
 
     /**
      * Rendu des composants.
-     * @param g
+     * @param g Graphisme
      */
     @Override
     public void paint(Graphics g) {

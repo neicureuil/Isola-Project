@@ -32,7 +32,7 @@ public class LeftAndCenterLayout implements LayoutManager2 {
 
     /**
      * Supprime un composant de la layout.
-     * @param comp
+     * @param comp Composant a supprimer.
      */
     @Override
     public void removeLayoutComponent(Component comp) {

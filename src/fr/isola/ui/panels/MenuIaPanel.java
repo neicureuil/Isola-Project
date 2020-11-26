@@ -75,7 +75,7 @@ public class MenuIaPanel extends JPanel {
 
     /**
      * Action quand on clique sur le bouton d'entrainement du deplacement.
-     * @param e
+     * @param e L'evenement.
      */
     public void trainMoveClick(ActionEvent e) {
         if((new File("moves_dataset_8_6.txt")).exists())
@@ -84,7 +84,7 @@ public class MenuIaPanel extends JPanel {
 
     /**
      * Action quand on clique sur le bouton de destruction d'une case.
-     * @param e
+     * @param e L'evenement.
      */
     public void trainDestroyClick(ActionEvent e) {
         if((new File("destroy_dataset_8_6.txt")).exists())
