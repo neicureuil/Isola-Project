@@ -3,24 +3,49 @@ package fr.isola.game.players;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Classe de l'IA de prédiction à deux tours
+ */
 public class BestMoveIa extends Player implements IaPlayer {
 
+    /**
+     * Le constructeur de la classe
+     */
     public BestMoveIa() {
         super();
     }
 
+    /**
+     * Gère le déplacement de l'IA
+     * @param opponent le joueur adverse
+     * @param map le terrain
+     * @return le point où l'IA souhaite se déplacer
+     */
     @Override
     public Point move(Player opponent, boolean[][] map) {
         Point pts = getMostSafePlace(this, opponent, map);
         return (pts == null) ? new Point(0,0) : pts;
     }
 
+    /**
+     * Gère la destruction de case par l'IA
+     * @param opponent le joueur adverse
+     * @param map le terrain
+     * @return le point que l'IA souhaite détruire
+     */
     @Override
     public Point destroy(Player opponent, boolean[][] map) {
         Point pts = getMostSafePlace(opponent, this, map);
         return (pts == null) ? new Point(0,0) : pts;
     }
 
+    /**
+     * Fonction qui calcul la case la plus sure autour d'un joueur ciblé
+     * @param p1 le joueur ciblé
+     * @param p2 le joueur adverse
+     * @param map le terrain
+     * @return la position de la case la plus sure
+     */
     public static Point getMostSafePlace(Player p1, Player p2, boolean[][] map) {
         int sizeX = map.length;
         int sizeY = map[0].length;

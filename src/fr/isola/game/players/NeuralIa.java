@@ -4,12 +4,33 @@ import fr.isola.deepl.NeuralNetwork;
 
 import java.util.List;
 
+/**
+ * La classe qui apporte une IA de type réseau neuronal
+ */
 public class NeuralIa extends Player implements IaPlayer{
 
+    /**
+     * Le réseau qui gère le mouvement
+     */
     private NeuralNetwork moveBrain;
+    /**
+     * Le réseau qui gère la destruction
+     */
     private NeuralNetwork destroyBrain;
-    private int sizeX, sizeY;
+    /**
+     * Taille x du terrain
+     */
+    private int sizeX;
+    /**
+     * Taille y du terrain
+     */
+    private int sizeY;
 
+    /**
+     * Le constructeur de la classe
+     * @param sizeX Taille x du terrain
+     * @param sizeY Taille y du terrain
+     */
     public NeuralIa(int sizeX, int sizeY) {
         super();
         this.sizeX = sizeX;
@@ -18,6 +39,12 @@ public class NeuralIa extends Player implements IaPlayer{
         this.destroyBrain = NeuralNetwork.load("destroy_8_6");
     }
 
+    /**
+     * Gère le déplacement de l'IA
+     * @param opponent le joueur adverse
+     * @param map le terrain
+     * @return le point où l'IA souhaite se déplacer
+     */
     @Override
     public Point move(Player opponent, boolean[][] map) {
         double[] inputs = new double[52];
@@ -79,6 +106,12 @@ public class NeuralIa extends Player implements IaPlayer{
         return new Point(pX, pY);
     }
 
+    /**
+     * Gère la destruction de case par l'IA
+     * @param opponent le joueur adverse
+     * @param map le terrain
+     * @return le point que l'IA souhaite détruire
+     */
     @Override
     public Point destroy(Player opponent, boolean[][] map) {
         double[] inputs = new double[52];
@@ -109,6 +142,11 @@ public class NeuralIa extends Player implements IaPlayer{
         return new Point(pX, pY);
     }
 
+    /**
+     * Fonction qui permet de récupérer l'index de la plus grande valeur d'une liste
+     * @param array la liste
+     * @return l'index
+     */
     public int getIndexOfLargest( List<Double> array )
     {
         if ( array == null || array.size() == 0 ) return -1; // null or empty
