@@ -9,18 +9,46 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+/**
+ * Panneau du menu de l'application.
+ */
 public class MenuPanel extends JPanel {
 
+    /**
+     * Reference sur la fenetre principale.
+     */
     private IsolaFrame mainFrame;
 
+    /**
+     * Menu de configuration de l'IA.
+     */
     private MenuIaPanel iaPanel;
+    /**
+     * Menu de configuration de la partie.
+     */
     private MenuConfigPanel optionPanel;
+    /**
+     * Menu gauche.
+     */
     private LeftMenuPanel leftPanel;
+    /**
+     * Definit si le menu de configuration du jeu est afficher ou non.
+     */
     private boolean optionPanelShow = false;
+    /**
+     * Definit si le menu de configuration de l'ia est afficher ou non.
+     */
     private boolean iaPanelShow = false;
 
+    /**
+     * Image de fond.
+     */
     private Image bgImage;
 
+    /**
+     * Contructeur qui les initialises les éléments.
+     * @param mainFrame Reference sur la fenetre princpale.
+     */
     public MenuPanel(IsolaFrame mainFrame) {
         this.mainFrame = mainFrame;
 
@@ -52,17 +80,29 @@ public class MenuPanel extends JPanel {
 
         add(leftPanel, BorderLayout.WEST);
     }
+
+    /**
+     * Affichage des élements et de l'image de fond.
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bgImage, leftPanel.getWidth(), 0, getWidth(),getHeight(),0,0, bgImage.getWidth(null),bgImage.getHeight(null), null);
     }
 
+    /**
+     * @return La taille recommendée du panneau.
+     */
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(1280, 720);
     }
 
+    /**
+     * Fonction appelée quand on clique sur un le boutton jouer.
+     * @param e
+     */
     public void PlayButtonClicked(ActionEvent e) {
         optionPanelShow = !optionPanelShow;
 
@@ -78,6 +118,10 @@ public class MenuPanel extends JPanel {
         validate();
     }
 
+    /**
+     * Fonction appelée quand on clique sur un le boutton IA.
+     * @param e
+     */
     public void IaButtonClicked(ActionEvent e) {
         iaPanelShow = !iaPanelShow;
 
@@ -93,7 +137,10 @@ public class MenuPanel extends JPanel {
         validate();
     }
 
-
+    /**
+     * Fonction appelée quand on clique sur le boutton quitter.
+     * @param e
+     */
     public void QuitButtonClicked(ActionEvent e) {
         JComponent comp = (JComponent) e.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
@@ -101,6 +148,10 @@ public class MenuPanel extends JPanel {
         System.exit(0);
     }
 
+    /**
+     * Fonction appelée quand on clique sur le bouton de lancement du jeu?.
+     * @param e
+     */
     public void LaunchGameClicked(ActionEvent e) {
         mainFrame.ShowGame(new Game(optionPanel.getGameConfig()));
     }

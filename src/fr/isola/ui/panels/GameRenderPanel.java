@@ -41,18 +41,53 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
      * Decalage horizontal du terrain.
      */
     private int offsetX;
+    /**
+     * Decalage horizontal du terrain.
+     */
     private  int offsetY;
+    /**
+     * Taille horizontale du terrain affiché.
+     */
     private int lineW;
+    /**
+     * Taille verticale du terrain affiché.
+     */
     private int lineH;
-    private int cMouseX = 0, cMouseY = 0;
+    /**
+     * Stockage temporaire des coords x de la sourie.
+     */
+    private int cMouseX = 0;
+    /**
+     * Stockage temporaire des coords y de la sourie.
+     */
+    private int cMouseY = 0;
 
+    /**
+     * Mask d'un tile pour quand la souris est decu.
+     */
     private int mouseOverMask = 0xff00ff00;
+    /**
+     * Mask d'un tile sur lequel ont peu se deplacer.
+     */
     private int moveMask = 0xff00ff00;
+    /**
+     * Mask d'un tile pour quand la souris est decu et que l'utilisateur doit en choisir un a detruire.
+     */
     private int destroyMask = 0xffff0000;
 
+    /**
+     * TileMap qui contient les differents tiles.
+     */
     private TileMap tmap;
+    /**
+     * Image de fond du panel.
+     */
     private Image bgImage;
 
+    /**
+     * Constructeur qui initialise les composants.
+     * @param game L'instance du jeu a afficher.
+     */
     public GameRenderPanel(Game game) {
         this.game = game;
         setBackground(new Color(6,66,115) );
@@ -69,6 +104,9 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
         Init();
     }
 
+    /**
+     * Initialisation du rendu du jeu et des éléments correspondants.
+     */
     private void Init() {
         tmap = new TileMap("/resources/images/tilemap.png", 16, 10, 5);
 
@@ -82,6 +120,10 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
         offsetY = (getPreferredSize().height - lineH) / 2;
     }
 
+    /**
+     * Rendu des différents éléments du jeu.
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -100,12 +142,23 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
         drawPlayer(g, game.getConfig().getP2());
     }
 
+    /**
+     * Rendu d'un joueur.
+     * @param g
+     * @param p Le joueur a afficher.
+     */
     private void drawPlayer(Graphics g, Player p) {
         int x1 = offsetX + p.getX() * tileSize;
         int y1 = offsetY + p.getY() * tileSize;
         g.drawImage(SpriteSheet.INSTANCE.getSprite(p.getSprite()), x1,y1, x1+tileSize, y1+tileSize, 0, 0, 48, 48, null);
     }
 
+    /**
+     * Rendu d'un tile.
+     * @param g
+     * @param x Coords x du tile.
+     * @param y Coords y du tile.
+     */
     private void drawTile(Graphics g, int x, int y) {
         int x1 = offsetX + x * tileSize;
         int y1 = offsetY + y * tileSize;
@@ -126,6 +179,12 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
+    /**
+     * Genere la clé d'un tile (informations sur les tiles autours).
+     * @param x Coords x du tile.
+     * @param y Coords y du tile.
+     * @return La clé.
+     */
     private String getTileKey(int x, int y) {
         String key = "";
 
@@ -143,6 +202,10 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
         return key;
     }
 
+    /**
+     * Evenement quand on clique sur un bouton de la souris.
+     * @param e
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() != MouseEvent.BUTTON1) return;
@@ -181,12 +244,19 @@ public class GameRenderPanel extends JPanel implements MouseListener, MouseMotio
 
     }
 
+    /**
+     * Recupere les coords x et y de la souris.
+     * @param e
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         cMouseX = e.getX();
         cMouseY = e.getY();
     }
 
+    /**
+     * @return Taille rencommendait du panneau.
+     */
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(1280, 670);

@@ -5,12 +5,27 @@ import fr.isola.ui.components.MenuButton;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panneau du menu gauche.
+ */
 public class LeftMenuPanel extends JPanel {
 
+    /**
+     * Bouton pour afficher la menu de paramètre de création de jeu.
+     */
     private JButton playBtn;
+    /**
+     * Bouton pour afficher la menu de paramètre d'entrainement de l'IA.
+     */
     private JButton iaBtn;
+    /**
+     * Bouton pour quitter l'application.
+     */
     private JButton quitBtn;
 
+    /**
+     * Constructeur qui initialise les composant.
+     */
     public LeftMenuPanel() {
         setBackground(new Color(18,18,18));
         setLayout(new GridBagLayout());
@@ -41,14 +56,23 @@ public class LeftMenuPanel extends JPanel {
 
     }
 
+    /**
+     * @return Le bouton d'affichhe du menu du jeu.
+     */
     public JButton getPlayBtn() {
         return playBtn;
     }
 
+    /**
+     * @return Le bouton pour quitter l'app.
+     */
     public JButton getQuitBtn() {
         return quitBtn;
     }
 
+    /**
+     * @return Le bouton pour afficher le menu IA.
+     */
     public JButton getIaBtn() {
         return iaBtn;
     }

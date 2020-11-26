@@ -9,11 +9,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+/**
+ * Menu de configuration des IA.
+ */
 public class MenuIaPanel extends JPanel {
 
-    private JButton trainMoveBtn, trainDestroyBtn;
+    /**
+     * Bouton d'entrainement du déplacement de l'IA.
+     */
+    private JButton trainMoveBtn;
+    /**
+     * Bouton d'entrainement de la destruction de case de l'IA.
+     */
+    private JButton trainDestroyBtn;
+    /**
+     * Gestionnaire d'entrainement d'IA.
+     */
     private IaTrainer trainer;
 
+    /**
+     * Constructeur qui initialise les éléments du panel.
+     */
     public MenuIaPanel() {
         this.trainer = new IaTrainer();
 
@@ -57,11 +73,19 @@ public class MenuIaPanel extends JPanel {
 
     }
 
+    /**
+     * Action quand on clique sur le bouton d'entrainement du deplacement.
+     * @param e
+     */
     public void trainMoveClick(ActionEvent e) {
         if((new File("moves_dataset_8_6.txt")).exists())
             trainer.TrainNeuralIaMovement(new Dataset("moves_dataset_8_6.txt"));
     }
 
+    /**
+     * Action quand on clique sur le bouton de destruction d'une case.
+     * @param e
+     */
     public void trainDestroyClick(ActionEvent e) {
         if((new File("destroy_dataset_8_6.txt")).exists())
             trainer.TrainNeuralIaDestroy(new Dataset("destroy_dataset_8_6.txt"));

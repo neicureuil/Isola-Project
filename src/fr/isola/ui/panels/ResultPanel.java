@@ -5,11 +5,23 @@ import fr.isola.ui.components.MenuButton;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panneau d'affichage des resultats de la patie.
+ */
 public class ResultPanel extends JPanel {
 
+    /**
+     * Bouton de confirmation.
+     */
     private JButton confirmButton;
+    /**
+     * Label d'affichage du resultat.
+     */
     private JLabel resultText;
 
+    /**
+     * Constructeur qui initialise les éléments.
+     */
     public ResultPanel() {
         setOpaque(false);
         setLayout(new GridBagLayout());
@@ -30,14 +42,24 @@ public class ResultPanel extends JPanel {
         add(confirmButton, gbc);
     }
 
+    /**
+     * Change le texte de resultat.
+     * @param txt Le texte.
+     */
     public void SetText(String txt) {
         this.resultText.setText(txt);
     }
 
+    /**
+     * @return Le bouton de confirmation.
+     */
     public JButton getConfirmButton() {
         return confirmButton;
     }
 
+    /**
+     * @return La taille recommandé du panel.
+     */
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(1280, 670);

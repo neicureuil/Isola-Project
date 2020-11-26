@@ -11,12 +11,35 @@ import fr.isola.ui.components.PlayerSelection;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panneau du menu de configuration d'une partie avant le lancement.
+ */
 public class MenuConfigPanel extends JPanel {
 
+    /**
+     * Bouton de lacement de la partie.
+     */
     private JButton confirmPlayBtn;
-    private PlayerSelection playerSelect1, playerSelect2;
-    private NumberSelection widthSelect, heightSelect;
+    /**
+     * Element de selection du joueur 1.
+     */
+    private PlayerSelection playerSelect1;
+    /**
+     * Element de selection du joueur 2.
+     */
+    private PlayerSelection playerSelect2;
+    /**
+     * Selecteur la largeur du terrain de jeu.
+     */
+    private NumberSelection widthSelect;
+    /**
+     * Selecteur la hauteur du terrain de jeu.
+     */
+    private NumberSelection heightSelect;
 
+    /**
+     * Contructeur qui initialise les elements du panel.
+     */
     public MenuConfigPanel() {
         setBackground(new Color(20,20,20,100));
         setLayout(new GridBagLayout());
@@ -72,10 +95,16 @@ public class MenuConfigPanel extends JPanel {
         add(confirmPlayBtn, gbc);
     }
 
+    /**
+     * @return Le bouton de lancement du jeu.
+     */
     public JButton getConfirmPlayBtn() {
         return this.confirmPlayBtn;
     }
 
+    /**
+     * @return La configuration du jeu a lancer.
+     */
     public GameConfig getGameConfig() {
         Player p1 = Game.GetPlayerTypeFromId(playerSelect1.getPlayerType(), widthSelect.getValue(), heightSelect.getValue());
         p1.setSprite(playerSelect1.getSelectedSprite());
