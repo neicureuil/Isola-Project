@@ -8,16 +8,42 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Panel principal du jeu.
+ */
 public class GamePanel extends JPanel  {
 
+    /**
+     * Reference de la fenetre principale.
+     */
     private IsolaFrame mainPanel;
+    /**
+     * Instance du jeu a afficher.
+     */
     private Game game;
+    /**
+     * Panneau supérieur d'information.
+     */
     private GameInfoPanel infos;
+    /**
+     * Panneau de rendu du jeu.
+     */
     private GameRenderPanel renderer;
+    /**
+     * Panneau d'affichage des resultat de la partie.
+     */
     private ResultPanel results;
 
+    /**
+     * Etat temporaire du jeu affiché.
+     */
     private Game.GameState tmpState;
 
+    /**
+     * Constructeur qui initialise les composants.
+     * @param mainPanel Fenetre principale.
+     * @param game Instance du jeu a afficher.
+     */
     public GamePanel(IsolaFrame mainPanel, Game game) {
         this.game = game;
         this.mainPanel = mainPanel;
@@ -39,6 +65,10 @@ public class GamePanel extends JPanel  {
         this.results.getConfirmButton().addActionListener(this::ReturnToMenu);
     }
 
+    /**
+     * Rendu des composants.
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -52,6 +82,9 @@ public class GamePanel extends JPanel  {
         }
     }
 
+    /**
+     * Mise a jours du texte d'information de l'etat de la partie.
+     */
     public void UpdateTitleText() {
         String txt = "Joueur " + game.getActivePlayerId() + " : ";
         if(game.getState() == Game.GameState.MOVE) {
@@ -62,6 +95,9 @@ public class GamePanel extends JPanel  {
         infos.setInfoText(txt);
     }
 
+    /**
+     * Affiche les resultats de la partie.
+     */
     public void ShowResults() {
         infos.setInfoText("Resultat");
 
@@ -77,6 +113,10 @@ public class GamePanel extends JPanel  {
         add(results);
     }
 
+    /**
+     * Demande un retours au menu principal.
+     * @param e L'evenement declancheur.
+     */
     public void ReturnToMenu(ActionEvent e) {
         mainPanel.ShowMenu();
     }

@@ -15,14 +15,35 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Panneau de rendu du jeu.
+ */
 public class GameRenderPanel extends JPanel implements MouseListener, MouseMotionListener {
 
+    /**
+     * Instance du jeu a afficher.
+     */
     private Game game;
 
+    /**
+     * Taille d'un tile affiché.
+     */
     private int tileSize = 48;
-    private int sizeX, sizeY;
-    private int offsetX, offsetY;
-    private int lineW, lineH;
+    /**
+     * Taille horizontal du terrain.
+     */
+    private int sizeX;
+    /**
+     * Taille verticale du terrain.
+     */
+    private  int sizeY;
+    /**
+     * Decalage horizontal du terrain.
+     */
+    private int offsetX;
+    private  int offsetY;
+    private int lineW;
+    private int lineH;
     private int cMouseX = 0, cMouseY = 0;
 
     private int mouseOverMask = 0xff00ff00;

@@ -2,19 +2,38 @@ package fr.isola.ui.layouts;
 
 import java.awt.*;
 
+/**
+ * LayoutManager custom permettant d'afficher un élément a gauche et un au centre sur la même ligne.
+ */
 public class LeftAndCenterLayout implements LayoutManager2 {
 
+    /**
+     * Id gauche.
+     */
     public static final Integer LEFT = 0;
 
+    /**
+     * Id centre.
+     */
     public static final Integer CENTERED = 1;
 
+    /**
+     * Composant gauche.
+     */
     private Component leftComponent;
 
+    /**
+     * Composant centre.
+     */
     private Component centeredComponent;
 
     @Override
     public void addLayoutComponent(String name, Component comp) { }
 
+    /**
+     * Supprime un composant de la layout.
+     * @param comp
+     */
     @Override
     public void removeLayoutComponent(Component comp) {
         if (leftComponent == comp) {
@@ -24,6 +43,10 @@ public class LeftAndCenterLayout implements LayoutManager2 {
         }
     }
 
+    /**
+     * @param parent Containeur parent.
+     * @return Les dimensions recommander de la layout.
+     */
     @Override
     public Dimension preferredLayoutSize(Container parent) {
         Dimension d = new Dimension();
@@ -36,11 +59,19 @@ public class LeftAndCenterLayout implements LayoutManager2 {
         return d;
     }
 
+    /**
+     * @param parent L'élément parent.
+     * @return Taille minimum de la layout.
+     */
     @Override
     public Dimension minimumLayoutSize(Container parent) {
         return preferredLayoutSize(parent);
     }
 
+    /**
+     * Gestion du placement des éléments dans la layout.
+     * @param parent La conteneur parent.
+     */
     @Override
     public void layoutContainer(Container parent) {
         //in this method we will:
@@ -70,6 +101,11 @@ public class LeftAndCenterLayout implements LayoutManager2 {
                 centeredComponentHeight);
     }
 
+    /**
+     * Ajoute un composant a la layout.
+     * @param comp Le composant a ajouter.
+     * @param constraints La contrainte du composant.
+     */
     @Override
     public void addLayoutComponent(Component comp, Object constraints) {
         if (LEFT.equals(constraints)) {
@@ -87,16 +123,28 @@ public class LeftAndCenterLayout implements LayoutManager2 {
         }
     }
 
+    /**
+     * @param target Conteneur parent.
+     * @return Taille maximum de la layout.
+     */
     @Override
     public Dimension maximumLayoutSize(Container target) {
         return new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 
+    /**
+     * @param target Conteneyr parent.
+     * @return L'alignement horizontal de la layout.
+     */
     @Override
     public float getLayoutAlignmentX(Container target) {
         return 0;
     }
 
+    /**
+     * @param target Conteneur parent.
+     * @return L'alignement vertical de la layout.
+     */
     @Override
     public float getLayoutAlignmentY(Container target) {
         return 0;
