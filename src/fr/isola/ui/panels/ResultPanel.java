@@ -2,8 +2,10 @@ package fr.isola.ui.panels;
 
 import fr.isola.ui.components.MenuButton;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Panneau d'affichage des resultats de la patie.
@@ -18,6 +20,10 @@ public class ResultPanel extends JPanel {
      * Label d'affichage du resultat.
      */
     private JLabel resultText;
+    /**
+     * Image de fond du panel.
+     */
+    private Image bgImage;
 
     /**
      * Constructeur qui initialise les éléments.
@@ -26,8 +32,14 @@ public class ResultPanel extends JPanel {
         setOpaque(false);
         setLayout(new GridBagLayout());
 
+        try {
+            this.bgImage = ImageIO.read(getClass().getResource("/resources/images/game.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         resultText = new JLabel("Lorem Ipsum");
-        resultText.setForeground(Color.WHITE);
+        resultText.setForeground(Color.BLACK);
         resultText.setFont(resultText.getFont().deriveFont(25f));
 
         confirmButton = new MenuButton("OK");
@@ -40,6 +52,16 @@ public class ResultPanel extends JPanel {
         add(resultText, gbc);
         gbc.gridy = 1;
         add(confirmButton, gbc);
+    }
+
+    /**
+     * Affichage des élements et de l'image de fond.
+     * @param g L'evenement.
+     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(bgImage, 0, 0, getWidth(),getHeight(),0,0, bgImage.getWidth(null),bgImage.getHeight(null), null);
     }
 
     /**
