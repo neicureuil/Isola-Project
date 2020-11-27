@@ -117,6 +117,6 @@ public class MenuConfigPanel extends JPanel {
             heightSelect.setValue(6);
         }
 
-        return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue(), true);
+        return new GameConfig(p1, p2, widthSelect.getValue(),heightSelect.getValue(), false);
     }
 }
